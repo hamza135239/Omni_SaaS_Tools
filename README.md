@@ -1,109 +1,83 @@
-# FleetTechGuide — Production Deployment & Setup Guide
+# ToolboxSaaS — Production Deployment & Setup Guide
 
-A enterprise-grade, high-performance blog platform for **Fleet Telematics, GPS Tracking & ELD Compliance**.
-Built with Next.js 16 (App Router), TypeScript, Tailwind CSS, Supabase (PostgreSQL), and Google AdSense optimization.
+A high-performance, open-source SaaS utility suite providing **14 Free Online Tools** for PDF documents, AI resume building, ATS resume scoring, cover letters, and image processing. Built with Next.js 16 (App Router), TypeScript, Tailwind CSS, Supabase (PostgreSQL), and Google AdSense / SEO optimization.
 
-Designed to serve 10M+ monthly page views with minimal server costs using SSG, ISR, and Cloudflare edge caching.
+Designed to deliver instant client-side & server-side document processing with zero queue times and responsive UI.
 
 ---
 
 ## 🛠️ Tech Stack & Architecture
 
-- **Framework**: Next.js 16 (App Router with ISR & SSG)
-- **Database & Auth**: Supabase (PostgreSQL + RLS Security Policies)
-- **Styling**: Tailwind CSS v4 (CSS variables, dark mode)
-- **Validation**: Zod schema validation
-- **AdSense**: AdSense-compliant responsive placeholders & auto-ad injection
-- **Performance**: Edge caching headers, AVIF/WebP image optimization, requestAnimationFrame scroll handlers
-- **SEO**: Dynamic JSON-LD (Article, Organization, WebSite, Breadcrumb), dynamic XML sitemap, RSS 2.0 feed
+- **Framework:** Next.js 16 (App Router with ISR & SSG)
+- **Database & Auth:** Supabase (PostgreSQL + RLS Security Policies)
+- **Styling:** Tailwind CSS (CSS variables, clean modern tokens)
+- **Document & Image Engine:** `pdf-lib`, `pdfjs-dist`, `docx`, `mammoth`
+- **Validation & Types:** TypeScript strict mode, Zod validation
+
+---
+
+## 🧰 Included Tools (14 Free SaaS Utilities)
+
+### 📄 PDF Utilities
+1. **PDF to Word Converter** (`/tools/pdf-to-word`)
+2. **Word to PDF Converter** (`/tools/word-to-pdf`)
+3. **PDF Merge** (`/tools/pdf-merge`)
+4. **Split PDF Pages** (`/tools/pdf-split`)
+5. **JPG to PDF Converter** (`/tools/image-to-pdf`)
+6. **Rotate PDF Pages** (`/tools/pdf-rotate`)
+7. **Protect PDF File** (`/tools/pdf-protect`)
+8. **PDF Compressor** (`/tools/pdf-compressor`)
+
+### 💼 Resume & Career AI Suite
+9. **ATS Resume Checker** (`/tools/ats-resume-checker`)
+10. **Resume Scorer** (`/tools/resume-scorer`)
+11. **AI Resume Builder** (`/tools/ai-resume-builder`)
+12. **Cover Letter Generator** (`/tools/cover-letter-generator`)
+
+### 🖼️ Image AI & Utility Tools
+13. **AI Background Remover** (`/tools/background-remover`)
+14. **Smart Image Compressor** (`/tools/image-compressor`)
+15. **Universal Image Converter** (`/tools/image-converter`)
 
 ---
 
 ## 🚀 Quick Start (Local Development)
 
-### 1. Prerequisites
-- Node.js 20+ installed
-- Supabase account & project
-
-### 2. Install Dependencies
 ```bash
+# 1. Install dependencies
 npm install
-```
 
-### 3. Setup Environment Variables
-Copy `.env.example` to `.env.local`:
-```bash
-cp .env.example .env.local
-```
-Fill in your Supabase project URL and Keys from the Supabase dashboard.
-
-### 4. Database Setup
-1. Open your project on [Supabase Dashboard](https://app.supabase.com).
-2. Go to **SQL Editor**.
-3. Copy the contents of `supabase/schema.sql` and run the script.
-4. (Optional) Run the seed post migration script to populate initial fleet telematics articles.
-
-### 5. Run Development Server
-```bash
+# 2. Start development server
 npm run dev
+
+# 3. Open local preview
+http://localhost:3000
 ```
-Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
-## 🗄️ Database Schema & RLS Policies
+## ⚙️ Environment Variables
 
-The database is built on PostgreSQL with Row Level Security (RLS) enabled on all tables:
-- `posts` — Core articles with full-text search index & view counters
-- `categories` — Content categories with auto-calculated post counts
-- `tags` & `post_tags` — Many-to-many article tagging
-- `profiles` — Author profiles & role-based access (`admin`, `editor`, `author`)
-- `comments` — Visitor comments with moderation states (`pending`, `approved`, `spam`)
-- `newsletter_subscribers` — Email subscriber list
-- `contact_submissions` — Contact form messages
-- `media` — Media library assets
+Create a `.env.local` file in the root directory:
 
----
-
-## ⚡ Deployment Guide (Vercel + Cloudflare)
-
-### Deploying to Vercel
-1. Push your repository to GitHub / GitLab.
-2. Import the project into [Vercel](https://vercel.com).
-3. Add the environment variables from `.env.example` in Vercel settings:
-   - `NEXT_PUBLIC_SUPABASE_URL`
-   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-   - `SUPABASE_SERVICE_ROLE_KEY`
-   - `NEXT_PUBLIC_SITE_URL` (Set to your production domain, e.g., `https://fleettechguide.com`)
-   - `NEXT_PUBLIC_ADSENSE_ID` (Once approved by AdSense)
-4. Click **Deploy**.
-
-### Cloudflare Integration (Edge Caching for 10M+ Page Views)
-1. Add your domain to Cloudflare.
-2. Set SSL/TLS encryption mode to **Full (Strict)**.
-3. Create a **Cache Rule** for static assets & ISR pages:
-   - Match: `URI Path starts with /_next/static` or `/blog`
-   - Cache Level: **Cache Everything**
-   - Edge Cache TTL: **7 days**
-4. Enable **Auto Minify** (HTML, CSS, JS) & **Brotli** compression.
+```env
+NEXT_PUBLIC_SITE_URL=https://toolboxsaas.com
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
+```
 
 ---
 
-## 💰 Monetization & AdSense Approval Checklist
+## 🌐 Production Build & Verification
 
-To ensure fast Google AdSense approval:
-- [x] Clear navigational structure with top-level categories
-- [x] Required legal pages (Privacy Policy, Terms & Conditions, Disclaimer, Cookie Policy)
-- [x] Original, fact-checked long-form content with cited sources
-- [x] Clear "Advertisement" labels above all ad units
-- [x] Responsive layout with zero content shifting (CLS optimized)
-- [x] Working contact form and about page
+```bash
+# Check TypeScript types
+npx tsc --noEmit
 
----
+# Build production bundle
+npm run build
 
-## 🔒 Security Features
-
-- **Row Level Security (RLS)**: Enforced at PostgreSQL layer
-- **API Rate Limiting**: In-memory rate limiting on search, comments, and contact API routes
-- **CSRF & Security Headers**: Strict CSP, X-Frame-Options, X-Content-Type-Options
-- **Strict Input Validation**: Zod schemas for all client inputs
+# Start production server
+npm run start
+```

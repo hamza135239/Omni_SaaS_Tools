@@ -1,5 +1,5 @@
 -- ============================================================
--- SEED DATA — 5 Fact-Checked Fleet Telematics Articles
+-- SEED DATA — Sample SaaS & Tech Articles
 -- Run this in Supabase SQL Editor AFTER schema.sql
 -- ============================================================
 
@@ -7,7 +7,7 @@
 -- Replace with actual Auth User UUID if testing auth
 INSERT INTO public.profiles (id, username, full_name, bio, role)
 VALUES 
-  ('00000000-0000-0000-0000-000000000001', 'editor', 'FleetTech Editorial Team', 'Independent telematics research & compliance experts.', 'admin')
+  ('00000000-0000-0000-0000-000000000001', 'editor', 'ToolboxSaaS Editorial Team', 'SaaS productivity & document automation experts.', 'admin')
 ON CONFLICT (id) DO NOTHING;
 
 -- 2. Insert Seed Articles

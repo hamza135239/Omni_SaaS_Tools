@@ -29,13 +29,15 @@ export default function LoginPage() {
         {/* Logo */}
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-2">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl flex items-center justify-center">
-              <span className="text-white font-bold">FT</span>
+            <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-indigo-700 rounded-xl flex items-center justify-center">
+              <span className="text-white font-extrabold text-sm">TS</span>
             </div>
-            <span className="font-bold text-xl text-gray-900 dark:text-white">FleetTech<span className="text-blue-600">Guide</span></span>
+            <span className="font-extrabold text-xl tracking-tight text-slate-900 font-outfit">
+              Toolbox<span className="text-indigo-600">SaaS</span>
+            </span>
           </Link>
           <h1 className="text-xl font-bold text-gray-900 dark:text-white mt-6">Admin Login</h1>
-          <p className="text-gray-500 text-sm mt-1">Sign in to manage your blog</p>
+          <p className="text-gray-500 text-sm mt-1">Sign in to manage your platform</p>
         </div>
 
         <form onSubmit={handleLogin} className="card p-6 space-y-4">

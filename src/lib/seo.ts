@@ -1,7 +1,7 @@
 import type { Post } from "@/types/database";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://fleettechguide.com";
-const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME ?? "FleetTechGuide";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://toolboxsaas.com";
+const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME ?? "ToolboxSaaS";
 
 /**
  * Generate JSON-LD schema for a blog article post
@@ -36,7 +36,7 @@ export function generateArticleSchema(post: Post) {
       "@id": `${SITE_URL}/blog/${post.slug}`,
     },
     wordCount: post.content?.split(/\s+/).length ?? 0,
-    articleSection: post.category?.name ?? "Fleet Telematics",
+    articleSection: post.category?.name ?? "PDF & Web Tools",
     keywords: post.tags?.map((t) => t.name).join(", ") ?? "",
     timeRequired: `PT${post.reading_time}M`,
     inLanguage: "en-US",
@@ -56,7 +56,7 @@ export function generateOrganizationSchema() {
     logo: `${SITE_URL}/logo.png`,
     sameAs: [],
     description:
-      "GPS Tracking, ELD Compliance & Fleet Telematics guides for small business owners.",
+      "Free 100% Client-Side PDF Tools, Image Utilities, ATS Resume Checker & AI Resume Builder Platform.",
   };
 }
 

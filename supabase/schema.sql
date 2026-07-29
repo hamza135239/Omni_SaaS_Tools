@@ -1,5 +1,5 @@
 -- ============================================================
--- FLEET TELEMATICS BLOG — SUPABASE DATABASE SCHEMA
+-- TOOLBOX SAAS PLATFORM — SUPABASE DATABASE SCHEMA
 -- Copy and run this entire file in your Supabase SQL Editor
 -- ============================================================
 
@@ -184,9 +184,9 @@ CREATE TABLE public.site_settings (
 
 -- Default settings
 INSERT INTO public.site_settings (key, value, description) VALUES
-  ('site_name', 'FleetTechGuide', 'Site name'),
-  ('site_tagline', 'GPS Tracking, ELD Compliance & Fleet Telematics for Small Business', 'Site tagline'),
-  ('site_url', 'https://fleettechguide.com', 'Production URL'),
+  ('site_name', 'ToolboxSaaS', 'Site name'),
+  ('site_tagline', 'Free Online PDF Utilities, AI Resume Builder & Image Tools', 'Site tagline'),
+  ('site_url', 'https://toolboxsaas.com', 'Production URL'),
   ('logo_url', '', 'Logo image URL'),
   ('favicon_url', '', 'Favicon URL'),
   ('ga4_id', '', 'Google Analytics 4 Measurement ID'),
@@ -194,7 +194,7 @@ INSERT INTO public.site_settings (key, value, description) VALUES
   ('posts_per_page', '10', 'Number of posts per page'),
   ('allow_comments', 'true', 'Enable comments globally'),
   ('comment_moderation', 'true', 'Require comment approval'),
-  ('footer_text', '© 2026 FleetTechGuide. All rights reserved.', 'Footer copyright text');
+  ('footer_text', '© 2026 ToolboxSaaS. All rights reserved.', 'Footer copyright text');
 
 -- ============================================================
 -- PAGE VIEWS (for analytics)

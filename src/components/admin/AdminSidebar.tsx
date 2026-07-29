@@ -38,12 +38,12 @@ export function AdminSidebar({ userRole }: AdminSidebarProps) {
       {/* Brand */}
       <div className="p-4 border-b border-gray-100 dark:border-gray-800">
         <div className="flex items-center gap-2">
-          <div className="w-7 h-7 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center">
-            <span className="text-white font-bold text-xs">FT</span>
+          <div className="w-7 h-7 bg-gradient-to-br from-indigo-500 to-indigo-700 rounded-lg flex items-center justify-center">
+            <span className="text-white font-extrabold text-xs">TS</span>
           </div>
           <div>
-            <p className="font-bold text-sm text-gray-900 dark:text-white">FleetTechGuide</p>
-            <p className="text-xs text-gray-400 capitalize">{userRole}</p>
+            <p className="font-extrabold text-sm text-slate-900 dark:text-white">ToolboxSaaS</p>
+            <p className="text-xs text-slate-400 capitalize">{userRole}</p>
           </div>
         </div>
       </div>
