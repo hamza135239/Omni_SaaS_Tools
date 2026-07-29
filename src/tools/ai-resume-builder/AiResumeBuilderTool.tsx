@@ -154,20 +154,22 @@ export function AiResumeBuilderTool() {
   return (
     <div className="w-full max-w-7xl mx-auto p-4 md:p-6 bg-white rounded-2xl border border-zinc-200 shadow-xs transition-all duration-200">
       
-      {/* Clean Header (No Competitor Branding) */}
-      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-4 mb-6 border-b border-zinc-100 print:hidden">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-sm shadow-xs">
-            <Sparkles className="w-5 h-5 text-white" />
+      {/* Clean Header */}
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-4 mb-6 border-b border-slate-200 print:hidden">
+        <div>
+          <div
+            style={{ backgroundColor: "#dbeafe", color: "#1e40af", borderColor: "#bfdbfe" }}
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-black border mb-3"
+          >
+            <Sparkles style={{ color: "#2563eb" }} className="w-4 h-4" />
+            <span>AI Resume Builder & Editor</span>
           </div>
-          <div>
-            <h1 className="text-xl md:text-2xl font-extrabold text-zinc-950 tracking-tight">
-              AI Resume Builder
-            </h1>
-            <p className="text-xs text-zinc-500">
-              Create ATS-optimized professional resumes with live preview & section reordering.
-            </p>
-          </div>
+          <h1 style={{ color: "#0f172a" }} className="text-2xl md:text-3xl font-black tracking-tight font-outfit">
+            AI Resume Builder
+          </h1>
+          <p style={{ color: "#334155" }} className="text-xs md:text-sm font-bold mt-1">
+            Create ATS-optimized professional resumes with live preview & section reordering.
+          </p>
         </div>
 
         {/* Right Actions */}

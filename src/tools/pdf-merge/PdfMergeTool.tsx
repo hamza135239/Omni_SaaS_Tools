@@ -81,15 +81,19 @@ export function PdfMergeTool() {
     <div className="w-full max-w-5xl mx-auto p-6 md:p-8 bg-white rounded-2xl border border-zinc-200 shadow-xs transition-all duration-200">
       
       {/* Clean Header */}
-      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-6 mb-6 border-b border-zinc-100">
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-6 mb-6 border-b border-slate-200">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-rose-50 text-rose-800 border border-rose-200 mb-2">
-            <Layers className="w-3.5 h-3.5 text-rose-600" /> Free PDF Tool
+          <div
+            style={{ backgroundColor: "#ffe4e6", color: "#9f1239", borderColor: "#fecdd3" }}
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-black border mb-3"
+          >
+            <Layers style={{ color: "#e11d48" }} className="w-4 h-4" />
+            <span>Free PDF Tool</span>
           </div>
-          <h1 className="text-2xl md:text-3xl font-extrabold text-zinc-950 tracking-tight">
-            PDF Merge & Splitter
+          <h1 style={{ color: "#0f172a" }} className="text-2xl md:text-3xl font-black tracking-tight font-outfit">
+            PDF Merge Online
           </h1>
-          <p className="text-xs md:text-sm text-zinc-500 mt-1">
+          <p style={{ color: "#334155" }} className="text-xs md:text-sm font-bold mt-1">
             Combine multiple PDF files into one single document with custom page reordering.
           </p>
         </div>
@@ -97,9 +101,11 @@ export function PdfMergeTool() {
         {pdfFiles.length > 0 && (
           <button
             onClick={handleReset}
-            className="flex items-center gap-2 px-3.5 py-2 text-xs font-semibold text-zinc-700 bg-zinc-100 hover:bg-zinc-200 border border-zinc-200 rounded-xl transition-all cursor-pointer"
+            style={{ backgroundColor: "#f1f5f9", color: "#0f172a", borderColor: "#cbd5e1" }}
+            className="flex items-center gap-2 px-4 py-2 text-xs font-black border rounded-xl transition-all cursor-pointer hover:bg-slate-200"
           >
-            <RefreshCw className="w-4 h-4 text-zinc-600" /> Start Fresh
+            <RefreshCw style={{ color: "#0f172a" }} className="w-4 h-4" />
+            <span>Start Fresh</span>
           </button>
         )}
       </div>
@@ -116,7 +122,8 @@ export function PdfMergeTool() {
               if (files) handleFilesUpload(files);
             }}
             onClick={() => fileInputRef.current?.click()}
-            className="relative border-2 border-dashed border-zinc-200 hover:border-rose-500 rounded-2xl p-8 text-center cursor-pointer bg-zinc-50/50 hover:bg-rose-50/30 transition-all group overflow-hidden"
+            style={{ backgroundColor: "#f8fafc", borderColor: "#cbd5e1" }}
+            className="relative border-2 border-dashed rounded-2xl p-10 md:p-14 text-center cursor-pointer transition-all"
           >
             <input
               type="file"
@@ -130,17 +137,30 @@ export function PdfMergeTool() {
               className="hidden"
             />
 
-            <div className="w-14 h-14 mx-auto mb-3 rounded-2xl bg-zinc-900 text-white flex items-center justify-center group-hover:scale-105 transition-transform">
-              <Upload className="w-7 h-7 text-white" />
+            <div
+              style={{ backgroundColor: "#0f172a", color: "#ffffff" }}
+              className="w-full max-w-md mx-auto mb-5 py-4 rounded-2xl flex items-center justify-center shadow-md"
+            >
+              <Upload style={{ color: "#ffffff" }} className="w-6 h-6 stroke-[2.5]" />
             </div>
 
-            <h3 className="text-base font-bold text-zinc-950 mb-1">
-              Drag & Drop PDF files here, or <span className="text-rose-600 underline">Add Files</span>
+            <h3 style={{ color: "#0f172a" }} className="text-xl md:text-2xl font-black mb-1 font-outfit">
+              Drag & Drop PDF files here, or <span style={{ color: "#e11d48" }} className="underline font-black">Choose Files</span>
             </h3>
 
-            <p className="text-xs text-zinc-500">
+            <p style={{ color: "#475569" }} className="text-xs max-w-md mx-auto font-bold mb-6">
               Upload 2 or more PDF documents. Free & private.
             </p>
+
+            <button
+              onClick={(e) => { e.stopPropagation(); fileInputRef.current?.click(); }}
+              type="button"
+              style={{ backgroundColor: "#0f172a", color: "#ffffff" }}
+              className="w-full max-w-md mx-auto py-4 rounded-2xl font-black text-sm shadow-md flex items-center justify-center gap-2 cursor-pointer transition-all hover:bg-slate-900"
+            >
+              <Upload style={{ color: "#ffffff" }} className="w-5 h-5" />
+              <span style={{ color: "#ffffff" }}>Choose PDF Files</span>
+            </button>
           </div>
 
           {error && (

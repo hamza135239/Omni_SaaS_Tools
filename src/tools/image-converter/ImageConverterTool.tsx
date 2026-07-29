@@ -171,17 +171,30 @@ export function ImageConverterTool() {
             className="hidden"
           />
 
-          <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-blue-600 text-white flex items-center justify-center group-hover:scale-105 transition-transform shadow-md">
-            <Upload className="w-8 h-8 text-white" />
+          <div
+            style={{ backgroundColor: "#0f172a", color: "#ffffff" }}
+            className="w-full max-w-md mx-auto mb-5 py-4 rounded-2xl flex items-center justify-center shadow-md"
+          >
+            <Upload style={{ color: "#ffffff" }} className="w-6 h-6 stroke-[2.5]" />
           </div>
 
-          <h3 className="text-xl font-extrabold text-slate-950 mb-1 font-outfit">
-            Select image to convert, or <span className="text-blue-600 underline">Browse File</span>
+          <h3 style={{ color: "#0f172a" }} className="text-xl md:text-2xl font-black mb-1 font-outfit">
+            Drag & Drop image file here, or <span style={{ color: "#2563eb" }} className="underline font-black">Choose File</span>
           </h3>
 
-          <p className="text-xs text-slate-600 max-w-md mx-auto font-bold">
-            Real-time HTML5 Canvas conversion. 100% private browser execution.
+          <p style={{ color: "#475569" }} className="text-xs max-w-md mx-auto font-bold mb-6">
+            Convert WEBP, PNG, JPG, BMP format instantly.
           </p>
+
+          <button
+            onClick={(e) => { e.stopPropagation(); fileInputRef.current?.click(); }}
+            type="button"
+            style={{ backgroundColor: "#0f172a", color: "#ffffff" }}
+            className="w-full max-w-md mx-auto py-4 rounded-2xl font-black text-sm shadow-md flex items-center justify-center gap-2 cursor-pointer transition-all hover:bg-slate-900"
+          >
+            <Upload style={{ color: "#ffffff" }} className="w-5 h-5" />
+            <span style={{ color: "#ffffff" }}>Choose Image File</span>
+          </button>
         </div>
       ) : (
         <div className="space-y-6">

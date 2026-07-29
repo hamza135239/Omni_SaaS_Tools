@@ -61,15 +61,19 @@ export function CoverLetterGeneratorTool() {
     <div className="w-full max-w-5xl mx-auto p-6 md:p-8 bg-white rounded-2xl border border-zinc-200 shadow-xs transition-all duration-200">
       
       {/* Header */}
-      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-6 mb-6 border-b border-zinc-100">
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-6 mb-6 border-b border-slate-200">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-800 border border-indigo-200 mb-2">
-            <Sparkles className="w-3.5 h-3.5 text-indigo-600" /> AI Cover Letter Writer
+          <div
+            style={{ backgroundColor: "#e0e7ff", color: "#3730a3", borderColor: "#c7d2fe" }}
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-black border mb-3"
+          >
+            <Sparkles style={{ color: "#4f46e5" }} className="w-4 h-4" />
+            <span>AI Cover Letter Writer</span>
           </div>
-          <h1 className="text-2xl md:text-3xl font-extrabold text-zinc-950 tracking-tight">
+          <h1 style={{ color: "#0f172a" }} className="text-2xl md:text-3xl font-black tracking-tight font-outfit">
             AI Cover Letter Generator
           </h1>
-          <p className="text-xs md:text-sm text-zinc-500 mt-1">
+          <p style={{ color: "#334155" }} className="text-xs md:text-sm font-bold mt-1">
             Generate persuasive, job-tailored cover letters in 10 seconds.
           </p>
         </div>
@@ -78,50 +82,54 @@ export function CoverLetterGeneratorTool() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         
         {/* Input Form */}
-        <div className="space-y-4 text-xs font-medium">
+        <div className="space-y-4 text-xs font-bold">
           <div className="space-y-1.5">
-            <label className="text-zinc-700 font-semibold">Your Name (Optional):</label>
+            <label style={{ color: "#0f172a" }} className="font-black text-xs block">Your Name (Optional):</label>
             <input
               type="text"
               value={applicantName}
               onChange={(e) => setApplicantName(e.target.value)}
               placeholder="e.g. Sarah Jenkins"
-              className="w-full p-3 rounded-xl border border-zinc-200 bg-zinc-50 text-zinc-950 focus:ring-2 focus:ring-indigo-600 focus:bg-white focus:outline-none"
+              style={{ backgroundColor: "#ffffff", color: "#0f172a", borderColor: "#94a3b8" }}
+              className="w-full p-3 rounded-xl border-2 font-extrabold focus:outline-none"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div className="space-y-1.5">
-              <label className="text-zinc-700 font-semibold">Target Job Title:*</label>
+              <label style={{ color: "#0f172a" }} className="font-black text-xs block">Target Job Title:*</label>
               <input
                 type="text"
                 value={jobTitle}
                 onChange={(e) => setJobTitle(e.target.value)}
                 placeholder="e.g. Senior Software Engineer"
-                className="w-full p-3 rounded-xl border border-zinc-200 bg-zinc-50 text-zinc-950 focus:ring-2 focus:ring-indigo-600 focus:bg-white focus:outline-none"
+                style={{ backgroundColor: "#ffffff", color: "#0f172a", borderColor: "#94a3b8" }}
+                className="w-full p-3 rounded-xl border-2 font-extrabold focus:outline-none"
               />
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-zinc-700 font-semibold">Company Name:*</label>
+              <label style={{ color: "#0f172a" }} className="font-black text-xs block">Company Name:*</label>
               <input
                 type="text"
                 value={companyName}
                 onChange={(e) => setCompanyName(e.target.value)}
                 placeholder="e.g. Microsoft"
-                className="w-full p-3 rounded-xl border border-zinc-200 bg-zinc-50 text-zinc-950 focus:ring-2 focus:ring-indigo-600 focus:bg-white focus:outline-none"
+                style={{ backgroundColor: "#ffffff", color: "#0f172a", borderColor: "#94a3b8" }}
+                className="w-full p-3 rounded-xl border-2 font-extrabold focus:outline-none"
               />
             </div>
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-zinc-700 font-semibold">Key Skills (Comma separated):</label>
+            <label style={{ color: "#0f172a" }} className="font-black text-xs block">Key Skills (Comma separated):</label>
             <input
               type="text"
               value={keySkills}
               onChange={(e) => setKeySkills(e.target.value)}
               placeholder="e.g. Python, AWS, Team Leadership, Agile"
-              className="w-full p-3 rounded-xl border border-zinc-200 bg-zinc-50 text-zinc-950 focus:ring-2 focus:ring-indigo-600 focus:bg-white focus:outline-none"
+              style={{ backgroundColor: "#ffffff", color: "#0f172a", borderColor: "#94a3b8" }}
+              className="w-full p-3 rounded-xl border-2 font-extrabold focus:outline-none"
             />
           </div>
 

@@ -120,15 +120,19 @@ export function AtsResumeCheckerTool() {
     <div className="w-full max-w-5xl mx-auto p-4 md:p-6 bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-800 transition-all duration-300">
       
       {/* Top Header */}
-      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-6 mb-6 border-b border-slate-200 dark:border-slate-800">
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-6 mb-6 border-b border-slate-200">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-purple-100 text-purple-800 dark:bg-purple-950/80 dark:text-purple-300 mb-2">
-            <Sparkles className="w-3.5 h-3.5 text-purple-600" /> AI Natural Language Processing (NLP) Engine
+          <div
+            style={{ backgroundColor: "#f3e8ff", color: "#6b21a8", borderColor: "#e9d5ff" }}
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-black border mb-3"
+          >
+            <Sparkles style={{ color: "#9333ea" }} className="w-4 h-4" />
+            <span>AI Natural Language Processing (NLP) Engine</span>
           </div>
-          <h1 className="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+          <h1 style={{ color: "#0f172a" }} className="text-2xl md:text-3xl font-black tracking-tight font-outfit">
             ATS Resume Checker & Keyword Matcher
           </h1>
-          <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+          <p style={{ color: "#334155" }} className="text-xs md:text-sm font-bold mt-1">
             Check your resume against target job descriptions to beat corporate ATS filters.
           </p>
         </div>
@@ -136,9 +140,11 @@ export function AtsResumeCheckerTool() {
         {result && (
           <button
             onClick={handleReset}
-            className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl transition-all"
+            style={{ backgroundColor: "#f1f5f9", color: "#0f172a", borderColor: "#cbd5e1" }}
+            className="flex items-center gap-2 px-4 py-2 text-xs font-black border rounded-xl transition-all cursor-pointer hover:bg-slate-200"
           >
-            <RefreshCw className="w-4 h-4" /> Reset Analysis
+            <RefreshCw style={{ color: "#0f172a" }} className="w-4 h-4" />
+            <span>Reset Analysis</span>
           </button>
         )}
       </div>
@@ -150,29 +156,31 @@ export function AtsResumeCheckerTool() {
             
             {/* Resume Text Input */}
             <div className="space-y-2">
-              <label className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                <FileText className="w-4 h-4 text-purple-600" /> Paste Your Resume Text:
+              <label style={{ color: "#0f172a" }} className="text-sm font-black flex items-center gap-2">
+                <FileText style={{ color: "#9333ea" }} className="w-4 h-4" /> Paste Your Resume Text:
               </label>
               <textarea
                 value={resumeText}
                 onChange={(e) => setResumeText(e.target.value)}
                 placeholder="Paste your full resume text here (Work experience, Skills, Summary, Education)..."
                 rows={10}
-                className="w-full p-4 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-purple-600 focus:outline-none"
+                style={{ backgroundColor: "#ffffff", color: "#0f172a", borderColor: "#94a3b8" }}
+                className="w-full p-4 rounded-xl border-2 text-sm font-extrabold focus:outline-none"
               />
             </div>
 
             {/* Job Description Input */}
             <div className="space-y-2">
-              <label className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                <Briefcase className="w-4 h-4 text-purple-600" /> Target Job Description:
+              <label style={{ color: "#0f172a" }} className="text-sm font-black flex items-center gap-2">
+                <Briefcase style={{ color: "#9333ea" }} className="w-4 h-4" /> Target Job Description:
               </label>
               <textarea
                 value={jobDescription}
                 onChange={(e) => setJobDescription(e.target.value)}
                 placeholder="Paste the target job description or requirements from LinkedIn, Indeed, etc..."
                 rows={10}
-                className="w-full p-4 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-purple-600 focus:outline-none"
+                style={{ backgroundColor: "#ffffff", color: "#0f172a", borderColor: "#94a3b8" }}
+                className="w-full p-4 rounded-xl border-2 text-sm font-extrabold focus:outline-none"
               />
             </div>
           </div>
