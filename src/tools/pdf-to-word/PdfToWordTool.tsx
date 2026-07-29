@@ -44,12 +44,25 @@ export function PdfToWordTool() {
 
     try {
       const pdfjsLib = await import("pdfjs-dist");
-      if (typeof window !== "undefined") {
-        pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.mjs`;
+      
+      const arrayBuffer = await file.arrayBuffer();
+      let pdf;
+
+      try {
+        if (typeof window !== "undefined") {
+          pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version || "3.11.174"}/build/pdf.worker.min.js`;
+        }
+        pdf = await pdfjsLib.getDocument({ data: new Uint8Array(arrayBuffer) }).promise;
+      } catch (workerErr) {
+        console.warn("Mobile WebWorker init fallback:", workerErr);
+        pdfjsLib.GlobalWorkerOptions.workerSrc = "";
+        pdf = await pdfjsLib.getDocument({
+          data: new Uint8Array(arrayBuffer),
+          useSystemFonts: true,
+          disableFontFace: true,
+        } as any).promise;
       }
 
-      const arrayBuffer = await file.arrayBuffer();
-      const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
       const totalPages = pdf.numPages;
 
       const docSections: any[] = [];

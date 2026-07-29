@@ -22,42 +22,103 @@ export function BackgroundRemoverTool() {
       const ctx = canvas.getContext("2d");
       if (!ctx) return resolve(imageElement.src);
 
-      canvas.width = imageElement.width;
-      canvas.height = imageElement.height;
-      ctx.drawImage(imageElement, 0, 0);
+      const maxDim = 1200;
+      let width = imageElement.naturalWidth || imageElement.width;
+      let height = imageElement.naturalHeight || imageElement.height;
+      if (width > maxDim || height > maxDim) {
+        if (width > height) {
+          height = Math.round((height * maxDim) / width);
+          width = maxDim;
+        } else {
+          width = Math.round((width * maxDim) / height);
+          height = maxDim;
+        }
+      }
 
-      const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      canvas.width = width;
+      canvas.height = height;
+      ctx.drawImage(imageElement, 0, 0, width, height);
+
+      const imgData = ctx.getImageData(0, 0, width, height);
       const data = imgData.data;
 
-      const cornerPixels = [
-        [0, 0],
-        [canvas.width - 1, 0],
-        [0, canvas.height - 1],
-        [canvas.width - 1, canvas.height - 1],
-      ];
+      // Sample border pixels to establish background color
+      const borderSamples: number[][] = [];
+      const stepX = Math.max(1, Math.floor(width / 30));
+      const stepY = Math.max(1, Math.floor(height / 30));
+
+      for (let x = 0; x < width; x += stepX) {
+        borderSamples.push([x, 0], [x, height - 1]);
+      }
+      for (let y = 0; y < height; y += stepY) {
+        borderSamples.push([0, y], [width - 1, y]);
+      }
 
       let rSum = 0, gSum = 0, bSum = 0;
-      cornerPixels.forEach(([x, y]) => {
-        const idx = (y * canvas.width + x) * 4;
+      borderSamples.forEach(([x, y]) => {
+        const idx = (y * width + x) * 4;
         rSum += data[idx];
         gSum += data[idx + 1];
         bSum += data[idx + 2];
       });
 
-      const bgR = rSum / 4;
-      const bgG = gSum / 4;
-      const bgB = bSum / 4;
-      const tolerance = 42;
+      const bgR = rSum / borderSamples.length;
+      const bgG = gSum / borderSamples.length;
+      const bgB = bSum / borderSamples.length;
 
-      for (let i = 0; i < data.length; i += 4) {
-        const r = data[i];
-        const g = data[i + 1];
-        const b = data[i + 2];
+      // Edge-Connected BFS Flood-Fill to prevent corrupting inner subject (shirt, hair, face)
+      const visited = new Uint8Array(width * height);
+      const queue: number[] = [];
+
+      for (let x = 0; x < width; x++) {
+        queue.push(x, 0);
+        queue.push(x, height - 1);
+        visited[0 * width + x] = 1;
+        visited[(height - 1) * width + x] = 1;
+      }
+      for (let y = 1; y < height - 1; y++) {
+        queue.push(0, y);
+        queue.push(width - 1, y);
+        visited[y * width + 0] = 1;
+        visited[y * width + (width - 1)] = 1;
+      }
+
+      const tolerance = 45;
+      let head = 0;
+
+      while (head < queue.length) {
+        const cx = queue[head++];
+        const cy = queue[head++];
+        const idx = (cy * width + cx) * 4;
+
+        const r = data[idx];
+        const g = data[idx + 1];
+        const b = data[idx + 2];
+
         const dist = Math.sqrt((r - bgR) ** 2 + (g - bgG) ** 2 + (b - bgB) ** 2);
+
         if (dist < tolerance) {
-          data[i + 3] = 0;
-        } else if (dist < tolerance + 25) {
-          data[i + 3] = Math.round(((dist - tolerance) / 25) * 255);
+          data[idx + 3] = 0;
+
+          const neighbors = [
+            [cx + 1, cy],
+            [cx - 1, cy],
+            [cx, cy + 1],
+            [cx, cy - 1],
+          ];
+
+          for (let i = 0; i < neighbors.length; i++) {
+            const [nx, ny] = neighbors[i];
+            if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
+              const nPos = ny * width + nx;
+              if (!visited[nPos]) {
+                visited[nPos] = 1;
+                queue.push(nx, ny);
+              }
+            }
+          }
+        } else if (dist < tolerance + 18) {
+          data[idx + 3] = Math.round(((dist - tolerance) / 18) * 255);
         }
       }
 
@@ -90,6 +151,7 @@ export function BackgroundRemoverTool() {
       setProgress(30);
 
       const blob = await imgRemover.removeBackground(file, {
+        publicPath: "https://staticimgly.com/@imgly/background-removal-data/1.5.5/dist/",
         progress: (stage: string, current: number, total: number) => {
           if (total > 0) {
             const p = Math.round((current / total) * 100);
@@ -103,7 +165,7 @@ export function BackgroundRemoverTool() {
       setProcessedUrl(processedImageUrl);
       setProgress(100);
     } catch (err) {
-      console.warn("WASM removal fallback to Smart Canvas:", err);
+      console.warn("WASM removal fallback to Edge-Connected Smart Canvas:", err);
       const img = new Image();
       img.crossOrigin = "anonymous";
       img.src = url;

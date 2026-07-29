@@ -38,7 +38,14 @@ export function WordToPdfTool() {
     try {
       const arrayBuffer = await file.arrayBuffer();
       const result = await mammoth.extractRawText({ arrayBuffer });
-      const rawText = result.value || "Converted Word Document";
+      const rawText = (result.value || "Converted Word Document")
+        .replace(/[\u2018\u2019\u02BC]/g, "'")
+        .replace(/[\u201C\u201D]/g, '"')
+        .replace(/[\u2013\u2014]/g, "-")
+        .replace(/\u2022/g, "*")
+        .replace(/\u2026/g, "...")
+        .replace(/\u00A0/g, " ")
+        .replace(/[^\x00-\x7F]/g, "");
 
       const pdfDoc = await PDFDocument.create();
       const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
