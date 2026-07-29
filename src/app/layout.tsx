@@ -89,18 +89,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteSchema) }} />
 
-        {/* Theme init script */}
+        {/* Theme init script - enforce light theme default for high contrast */}
         <script dangerouslySetInnerHTML={{ __html: `
           try {
             const t = localStorage.getItem('theme');
             const d = document.documentElement;
-            if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            if (t === 'dark') {
               d.classList.add('dark');
+            } else {
+              d.classList.remove('dark');
             }
           } catch(e) {}
         `}} />
       </head>
-      <body className="min-h-screen bg-slate-50 dark:bg-slate-950 font-sans antialiased text-slate-900 dark:text-slate-100">
+      <body className="min-h-screen bg-slate-50 font-sans antialiased text-slate-900">
         <ThemeProvider>
           <div className="flex flex-col min-h-screen">
             <Header />

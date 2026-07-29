@@ -14,24 +14,23 @@ interface ThemeContextValue {
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>("system");
+  const [theme, setThemeState] = useState<Theme>("light");
   const [resolvedTheme, setResolvedTheme] = useState<"light" | "dark">("light");
 
   useEffect(() => {
-    // Read persisted preference
+    // Read persisted preference - default to light for maximum contrast
     const stored = localStorage.getItem("theme") as Theme | null;
     if (stored) {
       setThemeState(stored);
       applyTheme(stored);
     } else {
-      applyTheme("system");
+      applyTheme("light");
     }
   }, []);
 
   function applyTheme(t: Theme) {
     const root = document.documentElement;
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const isDark = t === "dark" || (t === "system" && prefersDark);
+    const isDark = t === "dark";
     root.classList.toggle("dark", isDark);
     setResolvedTheme(isDark ? "dark" : "light");
   }
