@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #f8fafc;
+  --foreground: #0f172a;
+}
+
+body {
+  color: #0f172a;
+  background: #f8fafc;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Outfit', sans-serif;
+  color: #0f172a;
+}
+
+/* Canva Signature Purple-Cyan Gradient Hero Banner */
+.canva-hero-banner {
+  background: linear-gradient(135deg, #7d2ae8 0%, #00c4cc 100%);
+  border-radius: 32px;
+  box-shadow: 0 20px 40px -15px rgba(125, 42, 232, 0.3);
+}
+
+/* Canva Glass Search Bar */
+.canva-search-bar {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Canva Rounded Modern Card */
+.canva-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.canva-card:hover {
+  transform: translateY(-5px);
+  border-color: #7d2ae8;
+  box-shadow: 0 20px 35px -10px rgba(125, 42, 232, 0.2), 0 8px 16px -4px rgba(0, 0, 0, 0.04);
+}
+
+/* Canva Button Styling */
+.canva-btn-purple {
+  background: #7d2ae8;
+  color: #ffffff;
+  font-weight: 700;
+  border-radius: 16px;
+  transition: all 0.2s ease-in-out;
+}
+
+.canva-btn-purple:hover {
+  background: #6b21a8;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(125, 42, 232, 0.4);
+}
+
+/* Keyframe Animations */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-down {
+  animation: slideDown 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f8fafc;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
