@@ -70,7 +70,7 @@ export function ResumeScorerTool() {
   const extractPdfTextReal = async (file: File): Promise<string> => {
     try {
       const pdfjs = await import("pdfjs-dist");
-      pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.mjs`;
+      pdfjs.GlobalWorkerOptions.workerSrc = `https://cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjs.version || "6.1.200"}/build/pdf.worker.min.mjs`;
 
       const arrayBuffer = await file.arrayBuffer();
       const loadingTask = pdfjs.getDocument({ data: new Uint8Array(arrayBuffer) });
