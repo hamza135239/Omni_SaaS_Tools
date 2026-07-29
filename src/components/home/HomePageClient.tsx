@@ -92,7 +92,7 @@ export function HomePageClient() {
     },
     {
       id: "resume-scorer",
-      category: "career",
+      category: "resume",
       title: "Free ATS Resume Checker & Scorer",
       desc: "Audit your resume score out of 100, keyword gaps, section ordering & quick fixes in seconds.",
       badge: "Resumly Grade",
@@ -102,7 +102,7 @@ export function HomePageClient() {
     },
     {
       id: "ats-resume-checker",
-      category: "career",
+      category: "resume",
       title: "ATS Resume Checker",
       desc: "Check your resume keyword match score against target job descriptions to beat corporate filters.",
       badge: "NLP Engine",
@@ -112,7 +112,7 @@ export function HomePageClient() {
     },
     {
       id: "ai-resume-builder",
-      category: "career",
+      category: "resume",
       title: "AI Resume Builder",
       desc: "Build ATS-optimized professional resumes with live preview & printable templates.",
       badge: "ATS Optimized",
@@ -122,7 +122,7 @@ export function HomePageClient() {
     },
     {
       id: "cover-letter-generator",
-      category: "career",
+      category: "resume",
       title: "AI Cover Letter Generator",
       desc: "Generate persuasive, job-tailored cover letters in 10 seconds.",
       badge: "AI Writer",
@@ -145,7 +145,7 @@ export function HomePageClient() {
       category: "image",
       title: "Smart Image Compressor",
       desc: "Compress JPG, PNG, and WEBP file sizes up to 90% with live quality slider & byte savings stats.",
-      badge: "Up to 90% Savings",
+      badge: "Live Re-compress",
       href: "/tools/image-compressor",
       icon: <Sparkles className="w-6 h-6 text-indigo-600" />,
       tagColor: "bg-indigo-100 text-indigo-900 border-indigo-200",
@@ -155,7 +155,7 @@ export function HomePageClient() {
       category: "image",
       title: "Universal Image Converter",
       desc: "Batch convert PNG, JPG, WEBP, BMP, and GIF images to any format with zero quality loss.",
-      badge: "Batch Conversion",
+      badge: "Batch Convert",
       href: "/tools/image-converter",
       icon: <Layers className="w-6 h-6 text-blue-600" />,
       tagColor: "bg-blue-100 text-blue-900 border-blue-200",
@@ -163,8 +163,7 @@ export function HomePageClient() {
   ];
 
   const filteredTools = allTools.filter((t) => {
-    const matchesCategory =
-      selectedCategory === "all" || t.category === selectedCategory;
+    const matchesCategory = selectedCategory === "all" || t.category === selectedCategory;
     const matchesSearch =
       t.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       t.desc.toLowerCase().includes(searchQuery.toLowerCase());
@@ -172,31 +171,30 @@ export function HomePageClient() {
   });
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900">
-      {/* Hero Section */}
-      <section className="relative pt-12 pb-16 md:pt-20 md:pb-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 text-white overflow-hidden">
-        <div className="max-w-5xl mx-auto text-center space-y-6 relative z-10">
+    <div className="min-h-screen bg-slate-50 text-slate-950 font-sans pb-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-12">
+        
+        <HeaderAd />
+
+        {/* Canva Hero Banner */}
+        <div className="canva-hero-banner rounded-3xl p-8 sm:p-14 text-white text-center relative overflow-hidden">
           
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-black bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 backdrop-blur-md">
-            <Zap className="w-4 h-4 text-indigo-400" />
-            <span>100% Free Online AI & Utility Tools Platform</span>
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-white/20 text-white backdrop-blur-md border border-white/30 mb-6">
+            <Sparkles className="w-4 h-4 text-amber-300" /> Fast & Free Web Utility & AI Suite
           </div>
 
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight font-outfit text-white leading-tight">
-            Fast, Private Online Web Tools <br className="hidden sm:inline" />
-            <span className="bg-gradient-to-r from-indigo-400 via-sky-300 to-emerald-400 bg-clip-text text-transparent">
-              Zero Signup Required
-            </span>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-tight text-white font-outfit max-w-4xl mx-auto">
+            Every PDF & Image Tool You Need, <span className="text-amber-300 underline decoration-white/40 underline-offset-8">100% Free</span>
           </h1>
 
-          <p className="text-sm sm:text-base md:text-lg text-slate-300 max-w-2xl mx-auto font-medium leading-relaxed">
-            Process PDFs, compress images, remove photo backgrounds, and audit resumes with Resumly-grade AI algorithms. Executed 100% locally inside your web browser.
+          <p className="text-base sm:text-lg text-white/90 max-w-2xl mx-auto leading-relaxed font-medium mt-4">
+            Convert, split, merge, rotate, compress, and protect PDF files. 100% client-side browser privacy with zero registration.
           </p>
 
-          {/* Search Bar & Quick Filters */}
-          <div className="max-w-2xl mx-auto pt-4 space-y-4">
-            <div className="canva-search-bar rounded-2xl p-2 flex items-center gap-3 bg-white/10 border border-white/20 backdrop-blur-md">
-              <div className="pl-3 text-slate-300">
+          {/* Canva Search & Quick Category Filters */}
+          <div className="max-w-2xl mx-auto mt-8">
+            <div className="canva-search-bar rounded-2xl p-2 flex items-center gap-3">
+              <div className="pl-3 text-purple-600">
                 <Search className="w-5 h-5" />
               </div>
               <input
@@ -204,94 +202,104 @@ export function HomePageClient() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search PDF to Word, Split PDF, JPG to PDF, Rotate PDF, Protect PDF..."
-                className="w-full bg-transparent text-white placeholder-slate-400 text-sm focus:outline-none font-medium"
+                className="w-full bg-transparent border-none text-slate-900 font-semibold placeholder:text-slate-400 focus:outline-none text-sm"
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery("")}
-                  className="pr-3 text-xs font-bold text-slate-300 hover:text-white"
+                  className="px-3 py-1 text-xs text-slate-400 hover:text-slate-700 font-bold"
                 >
                   Clear
                 </button>
               )}
             </div>
 
-            <div className="flex flex-wrap items-center justify-center gap-2">
+            {/* Category Filter Pills */}
+            <div className="flex flex-wrap items-center justify-center gap-2 mt-5 text-xs font-bold">
               {[
-                { id: "all", label: "All Tools (15)" },
-                { id: "pdf", label: "PDF Suite (8)" },
-                { id: "image", label: "Image Tools (3)" },
-                { id: "career", label: "Career & Resume AI (4)" },
-              ].map((cat) => (
+                { id: "all", label: "✨ All Tools" },
+                { id: "pdf", label: "📄 PDF Tools" },
+                { id: "resume", label: "📊 Resume & CV" },
+                { id: "image", label: "🖼️ Image Tools" },
+              ].map((pill) => (
                 <button
-                  key={cat.id}
-                  onClick={() => setSelectedCategory(cat.id)}
-                  className={`px-3.5 py-1.5 rounded-full text-xs font-black transition-all cursor-pointer ${
-                    selectedCategory === cat.id
-                      ? "bg-white text-slate-950 shadow-md"
-                      : "bg-white/10 text-slate-300 hover:bg-white/20 border border-white/10"
+                  key={pill.id}
+                  onClick={() => setSelectedCategory(pill.id)}
+                  className={`px-4 py-2 rounded-full transition-all cursor-pointer ${
+                    selectedCategory === pill.id
+                      ? "bg-white text-purple-700 font-extrabold shadow-md scale-105"
+                      : "bg-white/20 text-white hover:bg-white/30 backdrop-blur-md"
                   }`}
                 >
-                  {cat.label}
+                  {pill.label}
                 </button>
               ))}
             </div>
           </div>
 
-          <div className="pt-4 flex items-center justify-center gap-6 text-xs text-slate-400 font-semibold">
-            <span className="flex items-center gap-1.5"><ShieldCheck className="w-4 h-4 text-emerald-400" /> Client-Side Privacy</span>
-            <span className="flex items-center gap-1.5"><Zap className="w-4 h-4 text-amber-400" /> Instant Processing</span>
-            <span className="flex items-center gap-1.5"><Lock className="w-4 h-4 text-indigo-400" /> Zero File Uploads</span>
-          </div>
-
-        </div>
-      </section>
-
-      {/* Main Tools Container */}
-      <section className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 space-y-12">
-        <HeaderAd />
-
-        <div>
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <h2 className="text-2xl font-black text-slate-950 tracking-tight font-outfit">
-                Featured Online Web Tools ({filteredTools.length})
-              </h2>
-              <p className="text-xs text-slate-600 font-bold mt-1">
-                Select any tool below to launch instant in-browser document or image processing.
-              </p>
+          {/* Trust Highlights */}
+          <div className="pt-8 grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-3xl mx-auto text-xs font-bold text-white border-t border-white/20 mt-8">
+            <div className="flex items-center justify-center gap-1.5">
+              <CheckCircle2 className="w-4 h-4 text-emerald-300" /> 100% Free Forever
             </div>
+            <div className="flex items-center justify-center gap-1.5">
+              <ShieldCheck className="w-4 h-4 text-amber-300" /> Client Privacy
+            </div>
+            <div className="flex items-center justify-center gap-1.5">
+              <Zap className="w-4 h-4 text-cyan-300" /> Fast WASM Speed
+            </div>
+            <div className="flex items-center justify-center gap-1.5">
+              <Lock className="w-4 h-4 text-purple-300" /> Zero Registration
+            </div>
+          </div>
+        </div>
+
+        {/* Tools Display */}
+        <div className="space-y-6">
+          <div className="flex items-center justify-between">
+            <h2 className="text-2xl font-extrabold text-slate-950 tracking-tight font-outfit">
+              {selectedCategory === "all"
+                ? "PDF Utility & AI SaaS Tools"
+                : selectedCategory === "pdf"
+                ? "📄 PDF Tools Suite"
+                : selectedCategory === "resume"
+                ? "📊 Resume & CV Tools"
+                : "🖼️ Image AI Tools"}
+            </h2>
+            <span className="text-xs font-extrabold text-purple-700 bg-purple-100 px-3.5 py-1 rounded-full border border-purple-200">
+              {filteredTools.length} Tools Active
+            </span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredTools.map((t) => (
+            {filteredTools.map((tool) => (
               <Link
-                key={t.id}
-                href={t.href}
-                className="group p-6 rounded-2xl bg-white border border-slate-200 hover:border-slate-300 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between"
+                key={tool.id}
+                href={tool.href}
+                className="canva-card p-6 flex flex-col justify-between group"
               >
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <div className="w-12 h-12 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-center group-hover:scale-105 transition-transform">
-                      {t.icon}
+                    <div className="w-12 h-12 rounded-2xl bg-slate-100 border border-slate-200 flex items-center justify-center group-hover:scale-110 transition-transform">
+                      {tool.icon}
                     </div>
-                    <span className={`px-2.5 py-1 rounded-full text-[11px] font-black border ${t.tagColor}`}>
-                      {t.badge}
+                    <span className={`px-3 py-1 rounded-full text-[11px] font-extrabold border ${tool.tagColor}`}>
+                      {tool.badge}
                     </span>
                   </div>
 
                   <div>
-                    <h3 className="font-black text-slate-950 text-lg group-hover:text-indigo-600 transition-colors flex items-center gap-1 font-outfit">
-                      {t.title} <ArrowUpRight className="w-4 h-4 text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <h3 className="font-extrabold text-slate-950 text-xl group-hover:text-purple-700 transition-colors flex items-center gap-1 font-outfit">
+                      {tool.title} <ArrowUpRight className="w-4 h-4 text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity" />
                     </h3>
-                    <p className="text-xs text-slate-600 mt-2 leading-relaxed font-bold">
-                      {t.desc}
+                    <p className="text-xs font-medium text-slate-700 mt-2 leading-relaxed">
+                      {tool.desc}
                     </p>
                   </div>
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-black text-indigo-600">
-                  <span>Launch Tool</span>
+                <div className="mt-6 pt-3.5 border-t border-slate-100 flex items-center justify-between text-xs font-extrabold text-purple-700">
+                  <span>Use Tool</span>
                   <span>→</span>
                 </div>
               </Link>
@@ -299,33 +307,8 @@ export function HomePageClient() {
           </div>
         </div>
 
-        {/* Value Proposition */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6">
-          <div className="p-6 rounded-2xl bg-white border border-slate-200 space-y-2">
-            <CheckCircle2 className="w-6 h-6 text-emerald-600" />
-            <h3 className="font-black text-slate-950 text-base font-outfit">100% Private Browser Sandbox</h3>
-            <p className="text-xs text-slate-600 font-bold leading-relaxed">
-              Your files never touch our servers. WebAssembly and HTML5 Canvas process all documents locally inside your web browser.
-            </p>
-          </div>
-          <div className="p-6 rounded-2xl bg-white border border-slate-200 space-y-2">
-            <Zap className="w-6 h-6 text-indigo-600" />
-            <h3 className="font-black text-slate-950 text-base font-outfit">Zero Signup & Unrestricted Usage</h3>
-            <p className="text-xs text-slate-600 font-bold leading-relaxed">
-              No credit cards, mandatory email logins, or daily file limits. Use every tool completely free anytime.
-            </p>
-          </div>
-          <div className="p-6 rounded-2xl bg-white border border-slate-200 space-y-2">
-            <Sparkles className="w-6 h-6 text-violet-600" />
-            <h3 className="font-black text-slate-950 text-base font-outfit">Resumly & Commercial Grade AI</h3>
-            <p className="text-xs text-slate-600 font-bold leading-relaxed">
-              Our career tools use advanced NLP algorithms to check ATS scores, order resume sections, and match job keywords.
-            </p>
-          </div>
-        </div>
-
         <FooterAd />
-      </section>
+      </div>
     </div>
   );
 }
