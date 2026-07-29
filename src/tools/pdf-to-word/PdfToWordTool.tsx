@@ -26,7 +26,7 @@ export function PdfToWordTool() {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileUpload = (uploadedFile: File) => {
-    if (uploadedFile.type !== "application/pdf") {
+    if (uploadedFile.type !== "application/pdf" && !uploadedFile.name.endsWith(".pdf")) {
       setError("Please upload a valid PDF file.");
       return;
     }
@@ -44,25 +44,23 @@ export function PdfToWordTool() {
 
     try {
       const pdfjsLib = await import("pdfjs-dist");
-      
-      const arrayBuffer = await file.arrayBuffer();
-      let pdf;
 
-      try {
-        if (typeof window !== "undefined") {
-          pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version || "3.11.174"}/build/pdf.worker.min.js`;
+      if (typeof window !== "undefined") {
+        try {
+          pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.mjs`;
+        } catch (e) {
+          console.warn("WorkerSrc setup warning:", e);
         }
-        pdf = await pdfjsLib.getDocument({ data: new Uint8Array(arrayBuffer) }).promise;
-      } catch (workerErr) {
-        console.warn("Mobile WebWorker init fallback:", workerErr);
-        pdfjsLib.GlobalWorkerOptions.workerSrc = "";
-        pdf = await pdfjsLib.getDocument({
-          data: new Uint8Array(arrayBuffer),
-          useSystemFonts: true,
-          disableFontFace: true,
-        } as any).promise;
       }
 
+      const arrayBuffer = await file.arrayBuffer();
+      const loadingTask = pdfjsLib.getDocument({
+        data: new Uint8Array(arrayBuffer),
+        useSystemFonts: true,
+        disableFontFace: true,
+      } as any);
+
+      const pdf = await loadingTask.promise;
       const totalPages = pdf.numPages;
 
       const docSections: any[] = [];
@@ -72,22 +70,24 @@ export function PdfToWordTool() {
         const page = await pdf.getPage(i);
         const textContent = await page.getTextContent();
 
-        const items: ExtractedTextItem[] = textContent.items.map((item: any) => ({
-          text: item.str,
-          x: item.transform[4],
-          y: item.transform[5],
-          width: item.width,
-          height: item.height,
-          fontSize: Math.abs(item.transform[0]),
+        const items: ExtractedTextItem[] = (textContent.items || []).map((item: any) => ({
+          text: item.str || "",
+          x: item.transform ? item.transform[4] : 0,
+          y: item.transform ? item.transform[5] : 0,
+          width: item.width || 0,
+          height: item.height || 0,
+          fontSize: item.transform ? Math.abs(item.transform[0]) : 12,
           fontName: item.fontName || "",
-          isBold: item.fontName?.toLowerCase().includes("bold") || (item.str.toUpperCase() === item.str && item.str.length > 3),
+          isBold:
+            item.fontName?.toLowerCase().includes("bold") ||
+            (item.str && item.str.toUpperCase() === item.str && item.str.length > 3),
         }));
 
         const lineMap = new Map<number, ExtractedTextItem[]>();
-        const tolerance = 4;
+        const tolerance = 6;
 
         items.forEach((item) => {
-          if (!item.text.trim()) return;
+          if (!item.text || !item.text.trim()) return;
 
           let foundY = Array.from(lineMap.keys()).find((y) => Math.abs(y - item.y) <= tolerance);
           if (foundY !== undefined) {
@@ -123,6 +123,20 @@ export function PdfToWordTool() {
           );
         });
 
+        if (pageParagraphs.length === 0) {
+          pageParagraphs.push(
+            new Paragraph({
+              children: [
+                new TextRun({
+                  text: `[Page ${i} Content]`,
+                  size: 20,
+                  font: "Calibri",
+                }),
+              ],
+            })
+          );
+        }
+
         docSections.push({
           properties: {},
           children: pageParagraphs,
@@ -143,7 +157,7 @@ export function PdfToWordTool() {
       setProgress(100);
       setLoading(false);
     } catch (err: any) {
-      console.error(err);
+      console.error("PDF to Word conversion error:", err);
       setError("Failed to convert PDF. Please ensure the file is not password protected.");
       setLoading(false);
     }
@@ -162,13 +176,17 @@ export function PdfToWordTool() {
       {/* Header */}
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-6 mb-6 border-b border-slate-200">
         <div>
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-black bg-blue-600 text-white shadow-xs mb-3">
-            <FileText className="w-4 h-4 text-white" /> PDF Utility Suite
+          <div
+            style={{ backgroundColor: "#dbeafe", color: "#1e40af", borderColor: "#bfdbfe" }}
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-black border mb-3"
+          >
+            <FileText style={{ color: "#2563eb" }} className="w-4 h-4" />
+            <span>PDF Utility Suite</span>
           </div>
-          <h1 className="text-2xl md:text-3xl font-extrabold text-slate-950 tracking-tight font-outfit">
+          <h1 style={{ color: "#0f172a" }} className="text-2xl md:text-3xl font-black tracking-tight font-outfit">
             PDF to Word Converter
           </h1>
-          <p className="text-xs md:text-sm text-slate-700 font-extrabold mt-1">
+          <p style={{ color: "#334155" }} className="text-xs md:text-sm font-bold mt-1">
             Convert non-editable PDF documents into editable Word (.docx) files matching 1:1 original layout.
           </p>
         </div>
@@ -176,15 +194,17 @@ export function PdfToWordTool() {
         {file && (
           <button
             onClick={handleReset}
-            className="flex items-center gap-2 px-4 py-2 text-xs font-extrabold text-slate-950 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded-xl transition-all cursor-pointer"
+            style={{ backgroundColor: "#f1f5f9", color: "#0f172a", borderColor: "#cbd5e1" }}
+            className="flex items-center gap-2 px-4 py-2 text-xs font-black border rounded-xl transition-all cursor-pointer hover:bg-slate-200"
           >
-            <RefreshCw className="w-4 h-4 text-slate-800" /> Convert Another PDF
+            <RefreshCw style={{ color: "#0f172a" }} className="w-4 h-4" />
+            <span>Convert Another PDF</span>
           </button>
         )}
       </div>
 
       {error && (
-        <div className="p-4 mb-6 rounded-xl bg-rose-100 border border-rose-300 text-rose-950 text-xs font-black">
+        <div style={{ backgroundColor: "#ffe4e6", color: "#9f1239", borderColor: "#fecdd3" }} className="p-4 mb-6 rounded-xl border text-xs font-black">
           {error}
         </div>
       )}
@@ -198,7 +218,8 @@ export function PdfToWordTool() {
             if (f) handleFileUpload(f);
           }}
           onClick={() => fileInputRef.current?.click()}
-          className="relative border-2 border-dashed border-slate-300 hover:border-blue-600 rounded-2xl p-12 text-center cursor-pointer bg-slate-50 hover:bg-blue-50/40 transition-all group"
+          style={{ backgroundColor: "#f8fafc", borderColor: "#cbd5e1" }}
+          className="relative border-2 border-dashed rounded-2xl p-10 md:p-14 text-center cursor-pointer transition-all"
         >
           <input
             type="file"
@@ -211,31 +232,44 @@ export function PdfToWordTool() {
             className="hidden"
           />
 
-          <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-blue-600 text-white flex items-center justify-center group-hover:scale-105 transition-transform shadow-lg border-2 border-blue-700">
-            <Upload className="w-8 h-8 text-white" />
+          <div
+            style={{ backgroundColor: "#0f172a", color: "#ffffff" }}
+            className="w-full max-w-md mx-auto mb-5 py-4 rounded-2xl flex items-center justify-center shadow-md"
+          >
+            <Upload style={{ color: "#ffffff" }} className="w-6 h-6 stroke-[2.5]" />
           </div>
 
-          <h3 className="text-xl font-extrabold text-slate-950 mb-1 font-outfit">
-            Select PDF file to convert, or <span className="text-blue-600 underline font-black">Browse File</span>
+          <h3 style={{ color: "#0f172a" }} className="text-xl md:text-2xl font-black mb-1 font-outfit">
+            Select PDF file to convert, or <span style={{ color: "#2563eb" }} className="underline font-black">Browse File</span>
           </h3>
 
-          <p className="text-xs text-slate-700 max-w-md mx-auto font-extrabold">
+          <p style={{ color: "#475569" }} className="text-xs max-w-md mx-auto font-bold mb-6">
             Extracts tables, paragraphs & headings into editable Word (.docx). 100% private.
           </p>
+
+          <button
+            onClick={(e) => { e.stopPropagation(); fileInputRef.current?.click(); }}
+            type="button"
+            style={{ backgroundColor: "#0f172a", color: "#ffffff" }}
+            className="w-full max-w-md mx-auto py-4 rounded-2xl font-black text-sm shadow-md flex items-center justify-center gap-2 cursor-pointer transition-all hover:bg-slate-900"
+          >
+            <Upload style={{ color: "#ffffff" }} className="w-5 h-5" />
+            <span style={{ color: "#ffffff" }}>Choose PDF File</span>
+          </button>
         </div>
       ) : (
         <div className="space-y-6">
           
-          <div className="p-4 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-between">
+          <div style={{ backgroundColor: "#f1f5f9", borderColor: "#cbd5e1" }} className="p-4 rounded-xl border flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <FileText className="w-8 h-8 text-blue-600" />
+              <FileText style={{ color: "#2563eb" }} className="w-8 h-8 flex-shrink-0" />
               <div>
-                <h4 className="font-extrabold text-slate-950 text-sm">{file.name}</h4>
-                <p className="text-xs text-slate-800 font-black">Size: {(file.size / 1024).toFixed(1)} KB</p>
+                <h4 style={{ color: "#0f172a" }} className="font-black text-sm">{file.name}</h4>
+                <p style={{ color: "#475569" }} className="text-xs font-extrabold">Size: {(file.size / 1024).toFixed(1)} KB</p>
               </div>
             </div>
 
-            <span className="px-3.5 py-1 rounded-full text-xs font-black bg-blue-600 text-white border border-blue-700 shadow-xs">
+            <span style={{ backgroundColor: "#2563eb", color: "#ffffff" }} className="px-3.5 py-1.5 rounded-full text-xs font-black shadow-xs">
               PDF Document Selected
             </span>
           </div>
@@ -244,27 +278,32 @@ export function PdfToWordTool() {
             <button
               onClick={handleConvert}
               disabled={loading}
-              className="w-full py-4 rounded-xl font-black text-sm bg-blue-600 hover:bg-blue-700 text-white shadow-md flex items-center justify-center gap-2 cursor-pointer transition-all disabled:bg-slate-300 disabled:text-slate-600 disabled:cursor-not-allowed"
+              style={{ backgroundColor: "#2563eb", color: "#ffffff" }}
+              className="w-full py-4 rounded-2xl font-black text-sm shadow-md flex items-center justify-center gap-2 cursor-pointer transition-all hover:bg-blue-700 disabled:opacity-75"
             >
-              {loading ? <RefreshCw className="w-5 h-5 animate-spin text-white" /> : <FileText className="w-5 h-5 text-white" />}
-              {loading ? `Converting PDF (${progress}%)...` : "Convert PDF to Editable Word (.docx)"}
+              {loading ? <RefreshCw style={{ color: "#ffffff" }} className="w-5 h-5 animate-spin" /> : <FileText style={{ color: "#ffffff" }} className="w-5 h-5" />}
+              <span style={{ color: "#ffffff" }}>
+                {loading ? `Converting PDF (${progress}%)...` : "Convert PDF to Editable Word (.docx)"}
+              </span>
             </button>
           ) : (
-            <div className="p-6 rounded-2xl bg-emerald-50 border border-emerald-200 space-y-4">
-              <div className="flex items-center gap-3 text-emerald-950 font-black">
-                <CheckCircle2 className="w-6 h-6 text-emerald-600" />
+            <div style={{ backgroundColor: "#ecfdf5", borderColor: "#a7f3d0" }} className="p-6 rounded-2xl border space-y-4">
+              <div className="flex items-center gap-3 font-black">
+                <CheckCircle2 style={{ color: "#059669" }} className="w-6 h-6 text-emerald-600 flex-shrink-0" />
                 <div>
-                  <h4 className="text-base font-extrabold font-outfit">Conversion Completed!</h4>
-                  <p className="text-xs text-emerald-800 font-extrabold">Your editable Word document is ready to download.</p>
+                  <h4 style={{ color: "#065f46" }} className="text-base font-black font-outfit">Conversion Completed!</h4>
+                  <p style={{ color: "#047857" }} className="text-xs font-bold">Your editable Word document is ready to download.</p>
                 </div>
               </div>
 
               <a
                 href={docxUrl}
                 download={docxFileName}
-                className="w-full py-4 rounded-xl font-black text-sm bg-emerald-600 hover:bg-emerald-700 text-white shadow-md flex items-center justify-center gap-2 cursor-pointer transition-all"
+                style={{ backgroundColor: "#059669", color: "#ffffff" }}
+                className="w-full py-4 rounded-2xl font-black text-sm shadow-md flex items-center justify-center gap-2 cursor-pointer transition-all hover:bg-emerald-700 text-center block"
               >
-                <Download className="w-5 h-5 text-white" /> Download {docxFileName}
+                <Download style={{ color: "#ffffff" }} className="w-5 h-5 inline-block mr-1" />
+                <span style={{ color: "#ffffff" }}>Download {docxFileName}</span>
               </a>
             </div>
           )}
