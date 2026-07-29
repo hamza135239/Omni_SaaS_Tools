@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { PdfToWordTool } from "@/tools/pdf-to-word/PdfToWordTool";
+import { PdfToWordClient } from "@/tools/pdf-to-word/PdfToWordClient";
 import { PdfToWordSeo } from "@/tools/pdf-to-word/PdfToWordSeo";
 import { HeaderAd, FooterAd } from "@/components/ads/AdUnit";
 import { RelatedTools } from "@/components/seo/RelatedTools";
@@ -98,7 +98,7 @@ export default function PdfToWordPage() {
         <span className="text-slate-950 dark:text-slate-100 font-bold">PDF to Word Converter</span>
       </div>
 
-      <PdfToWordTool />
+      <PdfToWordClient />
 
       <TrustBadges />
 

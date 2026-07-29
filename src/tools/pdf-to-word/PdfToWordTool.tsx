@@ -3,11 +3,6 @@
 import React, { useState, useRef } from "react";
 import { Upload, Download, FileText, RefreshCw, CheckCircle2 } from "lucide-react";
 import { Document, Packer, Paragraph, TextRun } from "docx";
-import * as pdfjsLib from "pdfjs-dist";
-
-if (typeof window !== "undefined") {
-  pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.mjs`;
-}
 
 interface ExtractedTextItem {
   text: string;
@@ -48,6 +43,11 @@ export function PdfToWordTool() {
     setError(null);
 
     try {
+      const pdfjsLib = await import("pdfjs-dist");
+      if (typeof window !== "undefined") {
+        pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.mjs`;
+      }
+
       const arrayBuffer = await file.arrayBuffer();
       const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
       const totalPages = pdf.numPages;
