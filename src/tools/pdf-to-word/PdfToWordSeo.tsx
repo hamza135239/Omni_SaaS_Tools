@@ -7,60 +7,50 @@ export function PdfToWordSeo() {
     "name": "PDF to Word Converter",
     "operatingSystem": "All",
     "applicationCategory": "UtilityApplication",
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.9",
-      "reviewCount": "1840",
-    },
     "offers": {
       "@type": "Offer",
-      "price": "0",
+      "price": "0.00",
       "priceCurrency": "USD",
-    },
+      "availability": "https://schema.org/InStock"
+    }
   };
 
-  const faqSchema = {
+  const howToSchema = {
     "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
+    "@type": "HowTo",
+    "name": "How to Convert PDF to Word (.docx) Online Free",
+    "description": "Step-by-step guide to converting static PDF documents to editable Microsoft Word files.",
+    "step": [
       {
-        "@type": "Question",
-        "name": "Is this PDF to Word converter 100% free?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, ToolboxSaaS PDF to Word converter is 100% free with no hidden fees, page limits, or registration required.",
-        },
+        "@type": "HowToStep",
+        "position": 1,
+        "name": "Select PDF File",
+        "text": "Drag and drop single or batch PDF files into the converter area above."
       },
       {
-        "@type": "Question",
-        "name": "Does it preserve the original PDF layout and tables?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, our converter uses Y-coordinate vertical clustering and borderless tables to reconstruct exact 1:1 layouts, line alignments, and multi-column bullet grids.",
-        },
+        "@type": "HowToStep",
+        "position": 2,
+        "name": "1:1 Layout Extraction",
+        "text": "Our engine clusters lines by exact Y-coordinates to reconstruct original column layouts."
       },
       {
-        "@type": "Question",
-        "name": "Is my PDF document private and secure?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "100% private. All PDF parsing and Word DOCX generation happens directly inside your web browser. Your files are never uploaded to any remote server.",
-        },
-      },
-    ],
+        "@type": "HowToStep",
+        "position": 3,
+        "name": "Download Word File",
+        "text": "Click download to open your fully editable .docx file in Microsoft Word or Google Docs."
+      }
+    ]
   };
 
   return (
     <article className="mt-16 border-t border-slate-200 pt-12 space-y-12 bg-white rounded-3xl p-8 md:p-12 text-slate-900 border border-slate-200">
-      
-      {/* Inject Structured Data Schemas for Google Search */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
       />
 
       <div className="space-y-4 max-w-3xl">
@@ -98,7 +88,6 @@ export function PdfToWordSeo() {
         </div>
       </div>
 
-      {/* Frequently Asked Questions */}
       <div className="space-y-6 pt-6 border-t border-slate-200">
         <h2 className="text-xl font-bold text-slate-950 font-outfit">Frequently Asked Questions (FAQ)</h2>
         <div className="space-y-4 text-xs md:text-sm text-slate-800">
@@ -112,7 +101,6 @@ export function PdfToWordSeo() {
           </div>
         </div>
       </div>
-
     </article>
   );
 }

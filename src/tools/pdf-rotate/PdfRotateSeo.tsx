@@ -7,16 +7,39 @@ export function PdfRotateSeo() {
     "name": "Rotate PDF Pages Online",
     "operatingSystem": "All",
     "applicationCategory": "UtilityApplication",
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.95",
-      "reviewCount": "1410",
-    },
     "offers": {
       "@type": "Offer",
-      "price": "0",
+      "price": "0.00",
       "priceCurrency": "USD",
-    },
+      "availability": "https://schema.org/InStock"
+    }
+  };
+
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Rotate PDF Pages Online for Free",
+    "description": "Step-by-step guide to rotating upside-down or sideways PDF pages 90°, 180°, or 270°.",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "position": 1,
+        "name": "Upload PDF Document",
+        "text": "Select or drag and drop your PDF file into the rotation tool."
+      },
+      {
+        "@type": "HowToStep",
+        "position": 2,
+        "name": "Select Rotation Angle",
+        "text": "Choose 90° right, 180° flip, or 270° left rotation angle."
+      },
+      {
+        "@type": "HowToStep",
+        "position": 3,
+        "name": "Download Rotated PDF",
+        "text": "Click download to save your permanently rotated PDF document."
+      }
+    ]
   };
 
   const faqSchema = {
@@ -44,10 +67,13 @@ export function PdfRotateSeo() {
 
   return (
     <article className="mt-16 border-t border-slate-200 pt-12 space-y-12 bg-white rounded-3xl p-8 md:p-12 text-slate-900 border border-slate-200 shadow-xs">
-      
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
       />
       <script
         type="application/ld+json"
@@ -102,7 +128,6 @@ export function PdfRotateSeo() {
           </div>
         </div>
       </div>
-
     </article>
   );
 }

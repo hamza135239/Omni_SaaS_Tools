@@ -7,16 +7,39 @@ export function PdfProtectSeo() {
     "name": "Protect PDF with Password",
     "operatingSystem": "All",
     "applicationCategory": "SecurityApplication",
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.96",
-      "reviewCount": "1650",
-    },
     "offers": {
       "@type": "Offer",
-      "price": "0",
+      "price": "0.00",
       "priceCurrency": "USD",
-    },
+      "availability": "https://schema.org/InStock"
+    }
+  };
+
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Password Protect PDF Files Online",
+    "description": "Step-by-step guide to encrypting PDF files with strong password protection.",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "position": 1,
+        "name": "Select PDF File",
+        "text": "Upload your PDF document into the encryption box above."
+      },
+      {
+        "@type": "HowToStep",
+        "position": 2,
+        "name": "Set Password",
+        "text": "Enter and confirm your secret encryption password."
+      },
+      {
+        "@type": "HowToStep",
+        "position": 3,
+        "name": "Download Encrypted PDF",
+        "text": "Click download to save your password-protected PDF document."
+      }
+    ]
   };
 
   const faqSchema = {
@@ -44,10 +67,13 @@ export function PdfProtectSeo() {
 
   return (
     <article className="mt-16 border-t border-slate-200 pt-12 space-y-12 bg-white rounded-3xl p-8 md:p-12 text-slate-900 border border-slate-200 shadow-xs">
-      
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
       />
       <script
         type="application/ld+json"
@@ -102,7 +128,6 @@ export function PdfProtectSeo() {
           </div>
         </div>
       </div>
-
     </article>
   );
 }

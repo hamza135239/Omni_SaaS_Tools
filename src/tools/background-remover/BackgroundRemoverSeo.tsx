@@ -7,16 +7,39 @@ export function BackgroundRemoverSeo() {
     "name": "AI Background Remover",
     "operatingSystem": "All",
     "applicationCategory": "MultimediaApplication",
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.92",
-      "reviewCount": "1950",
-    },
     "offers": {
       "@type": "Offer",
-      "price": "0",
+      "price": "0.00",
       "priceCurrency": "USD",
-    },
+      "availability": "https://schema.org/InStock"
+    }
+  };
+
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Remove Image Backgrounds Online Free",
+    "description": "Step-by-step guide to removing photo backgrounds and exporting transparent HD PNG files.",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "position": 1,
+        "name": "Upload Image",
+        "text": "Drag and drop PNG, JPG, or WEBP images into the editor."
+      },
+      {
+        "@type": "HowToStep",
+        "position": 2,
+        "name": "Instant AI Cutout",
+        "text": "Our AI model segments the subject and erases the background automatically."
+      },
+      {
+        "@type": "HowToStep",
+        "position": 3,
+        "name": "Download HD Transparent PNG",
+        "text": "Download your full-resolution cut-out image with transparent background."
+      }
+    ]
   };
 
   const faqSchema = {
@@ -44,10 +67,13 @@ export function BackgroundRemoverSeo() {
 
   return (
     <article className="mt-16 border-t border-slate-200 pt-12 space-y-12 bg-white rounded-3xl p-8 md:p-12 text-slate-900 border border-slate-200">
-      
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
       />
       <script
         type="application/ld+json"
@@ -88,7 +114,6 @@ export function BackgroundRemoverSeo() {
           </p>
         </div>
       </div>
-
     </article>
   );
 }

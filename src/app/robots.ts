@@ -1,18 +1,24 @@
 import { MetadataRoute } from "next";
+import { getCanonicalUrl } from "@/lib/seo/schema";
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://toolboxsaas.com";
+  const baseUrl = getCanonicalUrl("");
 
   return {
     rules: [
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/", "/_next/"],
+        disallow: ["/api/", "/admin/", "/login", "/search"],
       },
       {
         userAgent: "Mediapartners-Google",
         allow: "/",
+      },
+      {
+        userAgent: "Googlebot",
+        allow: "/",
+        disallow: ["/api/", "/admin/", "/login", "/search"],
       },
     ],
     sitemap: `${baseUrl}/sitemap.xml`,

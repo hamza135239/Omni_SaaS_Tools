@@ -7,17 +7,18 @@ import { RelatedTools } from "@/components/seo/RelatedTools";
 import { TrustBadges } from "@/components/seo/TrustBadges";
 import { ChevronRight, Home } from "lucide-react";
 import {
+  getCanonicalUrl,
   generateWebApplicationSchema,
+  generateWebPageSchema,
   generateFaqSchema,
   generateBreadcrumbSchema,
 } from "@/lib/seo/schema";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://toolboxsaas.com";
 const TOOL_PATH = "/tools/pdf-to-word";
-const CANONICAL_URL = `${SITE_URL}${TOOL_PATH}`;
+const CANONICAL_URL = getCanonicalUrl(TOOL_PATH);
 
 export const metadata: Metadata = {
-  title: "Convert PDF to Word Online Free (Editable DOCX) — Fast | ToolboxSaaS",
+  title: "Convert PDF to Word Online Free (Editable DOCX) — Fast",
   description:
     "Convert PDF files to editable Microsoft Word (.docx) documents online for free. Preserves layout, formatting, and fonts with 100% private browser processing.",
   keywords: [
@@ -36,6 +37,22 @@ export const metadata: Metadata = {
       "Convert PDF files to editable Microsoft Word (.docx) documents online for free preserving layout and fonts.",
     url: CANONICAL_URL,
     type: "website",
+    siteName: "ToolboxSaaS",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Convert PDF to Word Online Free (Editable DOCX) — Fast",
+    description: "Convert PDF files to editable Microsoft Word (.docx) documents online for free.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 
@@ -60,11 +77,17 @@ const webAppSchema = generateWebApplicationSchema({
   url: CANONICAL_URL,
 });
 
+const webPageSchema = generateWebPageSchema({
+  name: "Convert PDF to Word Online Free (Editable DOCX)",
+  description: "Convert PDF files to editable Microsoft Word (.docx) documents online for free.",
+  url: CANONICAL_URL,
+});
+
 const faqSchema = generateFaqSchema(faqs);
 
 const breadcrumbSchema = generateBreadcrumbSchema([
-  { name: "Home", url: `${SITE_URL}/` },
-  { name: "Tools", url: `${SITE_URL}/tools` },
+  { name: "Home", url: getCanonicalUrl("/") },
+  { name: "Tools", url: getCanonicalUrl("/tools") },
   { name: "PDF to Word Converter", url: CANONICAL_URL },
 ]);
 
@@ -74,6 +97,10 @@ export default function PdfToWordPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
       />
       <script
         type="application/ld+json"

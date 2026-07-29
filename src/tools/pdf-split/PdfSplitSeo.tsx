@@ -7,16 +7,39 @@ export function PdfSplitSeo() {
     "name": "Split PDF Pages Online",
     "operatingSystem": "All",
     "applicationCategory": "UtilityApplication",
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.94",
-      "reviewCount": "1520",
-    },
     "offers": {
       "@type": "Offer",
-      "price": "0",
+      "price": "0.00",
       "priceCurrency": "USD",
-    },
+      "availability": "https://schema.org/InStock"
+    }
+  };
+
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Split PDF Pages Online for Free",
+    "description": "Step-by-step guide to separating PDF pages or extracting custom page ranges.",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "position": 1,
+        "name": "Select PDF File",
+        "text": "Drag and drop your PDF document into the splitter box above."
+      },
+      {
+        "@type": "HowToStep",
+        "position": 2,
+        "name": "Choose Split Mode",
+        "text": "Choose to extract all pages as separate files or select a custom page range."
+      },
+      {
+        "@type": "HowToStep",
+        "position": 3,
+        "name": "Download Split PDFs",
+        "text": "Click download to save your split PDF files instantly."
+      }
+    ]
   };
 
   const faqSchema = {
@@ -52,10 +75,13 @@ export function PdfSplitSeo() {
 
   return (
     <article className="mt-16 border-t border-slate-200 pt-12 space-y-12 bg-white rounded-3xl p-8 md:p-12 text-slate-900 border border-slate-200 shadow-xs">
-      
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
       />
       <script
         type="application/ld+json"
@@ -110,7 +136,6 @@ export function PdfSplitSeo() {
           </div>
         </div>
       </div>
-
     </article>
   );
 }

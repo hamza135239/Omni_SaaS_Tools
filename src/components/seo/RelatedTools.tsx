@@ -22,17 +22,17 @@ const allTools: ToolItem[] = [
 
   // Image Tools
   { name: "Background Remover", href: "/tools/background-remover", description: "Remove image background automatically in 1 click", category: "image" },
-  { name: "Image Compressor", href: "/tools/image-compressor", description: "Compress PNG, JPG, and WebP images up to 80%", category: "image" },
+  { name: "Image Compressor", href: "/tools/image-compressor", description: "Compress PNG, JPG, and WebP images up to 90%", category: "image" },
   { name: "Image Converter", href: "/tools/image-converter", description: "Convert image files to PNG, JPG, WebP, or AVIF", category: "image" },
 
   // Resume Tools
+  { name: "Resume Scorer", href: "/tools/resume-scorer", description: "100-point ATS resume scoring & section audit", category: "resume" },
   { name: "AI Resume Builder", href: "/tools/ai-resume-builder", description: "Create professional ATS-friendly resumes in minutes", category: "resume" },
   { name: "ATS Resume Checker", href: "/tools/ats-resume-checker", description: "Scan your resume for ATS compliance and keywords", category: "resume" },
   { name: "Cover Letter Generator", href: "/tools/cover-letter-generator", description: "Generate personalized cover letters using AI", category: "resume" },
 ];
 
 export function RelatedTools({ currentPath, category }: { currentPath: string; category?: "pdf" | "image" | "resume" }) {
-  // Filter out current tool, prioritize same category
   const filtered = allTools
     .filter((t) => t.href !== currentPath)
     .sort((a, b) => {
@@ -43,13 +43,18 @@ export function RelatedTools({ currentPath, category }: { currentPath: string; c
     .slice(0, 4);
 
   return (
-    <section className="bg-white dark:bg-slate-900 rounded-2xl p-6 md:p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
-      <div className="flex items-center justify-between">
-        <h3 className="text-xl font-bold text-slate-950 dark:text-slate-50 flex items-center gap-2">
-          <Layers className="w-5 h-5 text-indigo-600 dark:text-indigo-400" /> Related Utility Tools
-        </h3>
-        <Link href="/tools" className="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1">
-          View all tools <ArrowRight className="w-3.5 h-3.5" />
+    <section className="bg-white rounded-3xl p-6 md:p-8 border border-slate-200 shadow-xs space-y-6">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+        <div>
+          <h3 className="text-xl font-black text-slate-950 font-outfit flex items-center gap-2">
+            <Layers className="w-5 h-5 text-indigo-600" /> Related Online Utility Tools
+          </h3>
+          <p className="text-xs text-slate-600 font-bold mt-1">
+            Explore complementary tools for document processing, image optimization, and career building.
+          </p>
+        </div>
+        <Link href="/tools" className="text-xs font-black text-indigo-600 hover:underline flex items-center gap-1">
+          View all 15 tools <ArrowRight className="w-3.5 h-3.5" />
         </Link>
       </div>
 
@@ -58,24 +63,40 @@ export function RelatedTools({ currentPath, category }: { currentPath: string; c
           <Link
             key={t.href}
             href={t.href}
-            className="group p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 hover:border-indigo-500 dark:hover:border-indigo-500 transition-all space-y-2 block"
+            className="group p-4 rounded-2xl bg-slate-50 border border-slate-200 hover:border-indigo-500 transition-all space-y-2 block"
           >
             <div className="flex items-center justify-between">
-              <div className="w-8 h-8 rounded-lg bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold">
                 {t.category === "pdf" && <FileText className="w-4 h-4" />}
                 {t.category === "image" && <ImageIcon className="w-4 h-4" />}
                 {t.category === "resume" && <FileCheck className="w-4 h-4" />}
               </div>
               <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-indigo-600 group-hover:translate-x-1 transition-all" />
             </div>
-            <h4 className="font-bold text-slate-900 dark:text-slate-100 text-sm group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+            <h4 className="font-extrabold text-slate-950 text-sm group-hover:text-indigo-600 transition-colors font-outfit">
               {t.name}
             </h4>
-            <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2">
+            <p className="text-xs text-slate-600 font-medium line-clamp-2">
               {t.description}
             </p>
           </Link>
         ))}
+      </div>
+
+      {/* Internal Navigation Category Pills */}
+      <div className="pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3 text-xs font-black">
+        <span className="text-slate-500">Quick Category Navigation:</span>
+        <div className="flex flex-wrap gap-2">
+          <Link href="/tools" className="px-3 py-1.5 rounded-xl bg-slate-100 text-slate-900 border border-slate-200 hover:bg-slate-200">
+            📄 All 8 PDF Tools
+          </Link>
+          <Link href="/tools" className="px-3 py-1.5 rounded-xl bg-slate-100 text-slate-900 border border-slate-200 hover:bg-slate-200">
+            🖼️ All 3 Image Tools
+          </Link>
+          <Link href="/tools" className="px-3 py-1.5 rounded-xl bg-slate-100 text-slate-900 border border-slate-200 hover:bg-slate-200">
+            💼 All 4 Career AI Tools
+          </Link>
+        </div>
       </div>
     </section>
   );

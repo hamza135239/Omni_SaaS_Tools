@@ -7,16 +7,39 @@ export function ResumeScorerSeo() {
     "name": "Free ATS Resume Checker & Scorer",
     "operatingSystem": "All",
     "applicationCategory": "BusinessApplication",
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.95",
-      "reviewCount": "2410",
-    },
     "offers": {
       "@type": "Offer",
-      "price": "0",
+      "price": "0.00",
       "priceCurrency": "USD",
-    },
+      "availability": "https://schema.org/InStock"
+    }
+  };
+
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Score Your Resume Against ATS Filters",
+    "description": "Step-by-step guide to auditing your CV for Applicant Tracking Systems.",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "position": 1,
+        "name": "Paste PDF / Text Resume",
+        "text": "Upload your resume PDF or paste raw plain text into the auditor box."
+      },
+      {
+        "@type": "HowToStep",
+        "position": 2,
+        "name": "100-Point Audit Engine",
+        "text": "Our algorithm scans for quantified metrics, technical skills, and standard section headings."
+      },
+      {
+        "@type": "HowToStep",
+        "position": 3,
+        "name": "Actionable Quick Fixes",
+        "text": "Review detailed breakdown scores and apply quick fixes to boost your ATS score above 85+."
+      }
+    ]
   };
 
   const faqSchema = {
@@ -44,10 +67,13 @@ export function ResumeScorerSeo() {
 
   return (
     <article className="mt-16 border-t border-slate-200 pt-12 space-y-12 bg-white rounded-3xl p-8 md:p-12 text-slate-900 border border-slate-200">
-      
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
       />
       <script
         type="application/ld+json"
@@ -88,7 +114,6 @@ export function ResumeScorerSeo() {
           </p>
         </div>
       </div>
-
     </article>
   );
 }

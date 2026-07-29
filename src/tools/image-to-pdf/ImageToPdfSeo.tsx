@@ -7,16 +7,39 @@ export function ImageToPdfSeo() {
     "name": "JPG to PDF Converter",
     "operatingSystem": "All",
     "applicationCategory": "UtilityApplication",
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.97",
-      "reviewCount": "1780",
-    },
     "offers": {
       "@type": "Offer",
-      "price": "0",
+      "price": "0.00",
       "priceCurrency": "USD",
-    },
+      "availability": "https://schema.org/InStock"
+    }
+  };
+
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Convert JPG & Images to PDF Online for Free",
+    "description": "Step-by-step guide to combining multiple JPG, PNG, and WEBP images into a clean single PDF document.",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "position": 1,
+        "name": "Upload Images",
+        "text": "Select or drag and drop single or multiple JPG/PNG images into the tool."
+      },
+      {
+        "@type": "HowToStep",
+        "position": 2,
+        "name": "Instant PDF Merge",
+        "text": "Our engine formats each image onto vector pages directly inside your browser."
+      },
+      {
+        "@type": "HowToStep",
+        "position": 3,
+        "name": "Download Single PDF",
+        "text": "Click download to save your merged PDF document instantly."
+      }
+    ]
   };
 
   const faqSchema = {
@@ -44,10 +67,13 @@ export function ImageToPdfSeo() {
 
   return (
     <article className="mt-16 border-t border-slate-200 pt-12 space-y-12 bg-white rounded-3xl p-8 md:p-12 text-slate-900 border border-slate-200 shadow-xs">
-      
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
       />
       <script
         type="application/ld+json"
@@ -98,7 +124,6 @@ export function ImageToPdfSeo() {
           </div>
         </div>
       </div>
-
     </article>
   );
 }
