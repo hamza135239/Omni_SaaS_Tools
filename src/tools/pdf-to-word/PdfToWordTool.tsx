@@ -47,20 +47,36 @@ export function PdfToWordTool() {
 
       if (typeof window !== "undefined") {
         try {
-          pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjsLib.version || "6.1.200"}/build/pdf.worker.min.mjs`;
+          pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
+            "pdfjs-dist/build/pdf.worker.min.mjs",
+            import.meta.url
+          ).toString();
         } catch (e) {
-          console.warn("WorkerSrc setup warning:", e);
+          pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjsLib.version || "6.1.200"}/build/pdf.worker.min.mjs`;
         }
       }
 
       const arrayBuffer = await file.arrayBuffer();
-      const loadingTask = pdfjsLib.getDocument({
-        data: new Uint8Array(arrayBuffer),
-        useSystemFonts: true,
-        disableFontFace: true,
-      } as any);
+      let pdf;
 
-      const pdf = await loadingTask.promise;
+      try {
+        const loadingTask = pdfjsLib.getDocument({
+          data: new Uint8Array(arrayBuffer),
+          useSystemFonts: true,
+          disableFontFace: true,
+        } as any);
+        pdf = await loadingTask.promise;
+      } catch (workerErr) {
+        console.warn("Mobile WebWorker restricted, falling back to main-thread inline parse:", workerErr);
+        pdfjsLib.GlobalWorkerOptions.workerSrc = "";
+        const fallbackTask = pdfjsLib.getDocument({
+          data: new Uint8Array(arrayBuffer),
+          useSystemFonts: true,
+          disableFontFace: true,
+        } as any);
+        pdf = await fallbackTask.promise;
+      }
+
       const totalPages = pdf.numPages;
 
       const docSections: any[] = [];

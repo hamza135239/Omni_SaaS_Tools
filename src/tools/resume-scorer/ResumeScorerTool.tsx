@@ -70,11 +70,29 @@ export function ResumeScorerTool() {
   const extractPdfTextReal = async (file: File): Promise<string> => {
     try {
       const pdfjs = await import("pdfjs-dist");
-      pdfjs.GlobalWorkerOptions.workerSrc = `https://cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjs.version || "6.1.200"}/build/pdf.worker.min.mjs`;
+      if (typeof window !== "undefined") {
+        try {
+          pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+            "pdfjs-dist/build/pdf.worker.min.mjs",
+            import.meta.url
+          ).toString();
+        } catch (e) {
+          pdfjs.GlobalWorkerOptions.workerSrc = `https://cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjs.version || "6.1.200"}/build/pdf.worker.min.mjs`;
+        }
+      }
 
       const arrayBuffer = await file.arrayBuffer();
-      const loadingTask = pdfjs.getDocument({ data: new Uint8Array(arrayBuffer) });
-      const pdfDoc = await loadingTask.promise;
+      let pdfDoc;
+
+      try {
+        const loadingTask = pdfjs.getDocument({ data: new Uint8Array(arrayBuffer) });
+        pdfDoc = await loadingTask.promise;
+      } catch (workerErr) {
+        console.warn("Mobile WebWorker restricted, falling back to main-thread inline parse:", workerErr);
+        pdfjs.GlobalWorkerOptions.workerSrc = "";
+        const fallbackTask = pdfjs.getDocument({ data: new Uint8Array(arrayBuffer) });
+        pdfDoc = await fallbackTask.promise;
+      }
 
       let fullText = "";
       for (let i = 1; i <= pdfDoc.numPages; i++) {
