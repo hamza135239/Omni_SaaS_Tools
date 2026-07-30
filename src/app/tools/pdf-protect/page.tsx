@@ -1,23 +1,114 @@
-import React from "react";
+import { Metadata } from "next";
+import Link from "next/link";
 import { PdfProtectTool } from "@/tools/pdf-protect/PdfProtectTool";
 import { PdfProtectSeo } from "@/tools/pdf-protect/PdfProtectSeo";
 import { HeaderAd, FooterAd } from "@/components/ads/AdUnit";
+import { RelatedTools } from "@/components/seo/RelatedTools";
+import { TrustBadges } from "@/components/seo/TrustBadges";
+import { ChevronRight, Home } from "lucide-react";
+import {
+  generateWebApplicationSchema,
+  generateFaqSchema,
+  generateBreadcrumbSchema,
+} from "@/lib/seo/schema";
 
-export const metadata = {
-  title: "Free Protect PDF Online — Add Password Encryption | ToolboxSaaS",
-  description: "Encrypt your PDF documents with custom passwords online for free. 100% private browser-side AES encryption.",
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://toolboxsaas.com";
+const TOOL_PATH = "/tools/pdf-protect";
+const CANONICAL_URL = `${SITE_URL}${TOOL_PATH}`;
+
+export const metadata: Metadata = {
+  title: "Protect PDF Online Free (Add Password & Encrypt PDF) | ToolboxSaaS",
+  description:
+    "Encrypt PDF documents with custom passwords online for free. 100% private browser-side AES encryption without uploading files to servers.",
+  keywords: [
+    "protect pdf online free",
+    "password protect pdf",
+    "encrypt pdf file online",
+    "lock pdf with password",
+    "pdf security tool free",
+  ],
   alternates: {
-    canonical: "https://toolboxsaas.com/tools/pdf-protect",
+    canonical: CANONICAL_URL,
+  },
+  openGraph: {
+    title: "Protect PDF Online Free (Add Password & Encrypt PDF)",
+    description:
+      "Encrypt PDF documents with custom passwords online for free.",
+    url: CANONICAL_URL,
+    type: "website",
   },
 };
 
+const faqs = [
+  {
+    q: "How do I password protect a PDF file for free?",
+    a: "Upload your PDF file, type your secure password, and click 'Protect PDF'. Download your encrypted PDF document instantly.",
+  },
+  {
+    q: "What encryption strength is used?",
+    a: "Our browser engine uses strong AES 128-bit / 256-bit encryption standards to lock PDF files.",
+  },
+  {
+    q: "Are my passwords or files stored on a server?",
+    a: "No! All encryption occurs locally inside your web browser. Your passwords and PDF files are never sent to external servers.",
+  },
+];
+
+const webAppSchema = generateWebApplicationSchema({
+  name: "Free Online PDF Document Locker",
+  description: "Encrypt PDF files with custom passwords locally in browser.",
+  url: CANONICAL_URL,
+});
+
+const faqSchema = generateFaqSchema(faqs);
+
+const breadcrumbSchema = generateBreadcrumbSchema([
+  { name: "Home", url: `${SITE_URL}/` },
+  { name: "Tools", url: `${SITE_URL}/tools` },
+  { name: "Protect PDF", url: CANONICAL_URL },
+]);
+
 export default function PdfProtectPage() {
   return (
-    <div className="min-h-screen bg-slate-50 py-10 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto space-y-8">
-        <HeaderAd />
-        <PdfProtectTool />
-        <PdfProtectSeo />
+    <div className="min-h-screen py-6 px-4 sm:px-6 lg:px-8 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
+      <HeaderAd />
+
+      <div className="max-w-5xl mx-auto mb-6 flex items-center gap-2 text-xs font-semibold text-slate-500 dark:text-slate-400">
+        <Link href="/" className="hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1">
+          <Home className="w-3.5 h-3.5" /> Home
+        </Link>
+        <ChevronRight className="w-3 h-3" />
+        <Link href="/tools" className="hover:text-indigo-600 dark:hover:text-indigo-400">
+          Tools
+        </Link>
+        <ChevronRight className="w-3 h-3" />
+        <span className="text-slate-950 dark:text-slate-100 font-bold">Protect PDF</span>
+      </div>
+
+      <PdfProtectTool />
+
+      <TrustBadges />
+
+      <PdfProtectSeo />
+
+      <div className="max-w-5xl mx-auto mt-12">
+        <RelatedTools currentPath={TOOL_PATH} category="pdf" />
+      </div>
+
+      <div className="mt-12">
         <FooterAd />
       </div>
     </div>
