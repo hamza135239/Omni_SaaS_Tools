@@ -101,16 +101,6 @@ export function HomePageClient() {
       tagColor: "bg-violet-100 text-violet-900 border-violet-200",
     },
     {
-      id: "ats-resume-checker",
-      category: "resume",
-      title: "Job Match Keyword Scanner",
-      desc: "Compare your resume against a specific job posting to find missing keywords and beat corporate ATS filters.",
-      badge: "Job Matcher",
-      href: "/tools/ats-resume-checker",
-      icon: <Award className="w-6 h-6 text-purple-600" />,
-      tagColor: "bg-purple-100 text-purple-900 border-purple-200",
-    },
-    {
       id: "ai-resume-builder",
       category: "resume",
       title: "AI Resume Builder",

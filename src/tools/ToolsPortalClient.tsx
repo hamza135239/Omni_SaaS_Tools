@@ -140,16 +140,6 @@ export function ToolsPortalClient() {
       tagColor: "bg-violet-50 text-violet-700 border-violet-200",
     },
     {
-      id: "ats-resume-checker",
-      title: "Job Match Keyword Scanner",
-      desc: "Compare resume keywords against specific job description postings.",
-      category: "career",
-      badge: "Job Matcher",
-      href: "/tools/ats-resume-checker",
-      icon: <Award className="w-6 h-6 text-purple-600" />,
-      tagColor: "bg-purple-50 text-purple-700 border-purple-200",
-    },
-    {
       id: "cover-letter-generator",
       title: "AI Cover Letter Generator",
       desc: "Generate persuasive, job-tailored cover letters in seconds.",

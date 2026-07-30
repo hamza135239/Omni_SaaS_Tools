@@ -52,7 +52,6 @@ const toolListItems = [
   { name: "Smart Image Compressor", url: getCanonicalUrl("/tools/image-compressor") },
   { name: "Universal Image Converter", url: getCanonicalUrl("/tools/image-converter") },
   { name: "General Resume Structure Auditor", url: getCanonicalUrl("/tools/resume-scorer") },
-  { name: "Job Match Keyword Scanner", url: getCanonicalUrl("/tools/ats-resume-checker") },
   { name: "AI Cover Letter Generator", url: getCanonicalUrl("/tools/cover-letter-generator") },
   { name: "AI Resume Builder", url: getCanonicalUrl("/tools/ai-resume-builder") },
 ];

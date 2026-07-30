@@ -23,7 +23,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/tools/image-converter", priority: 0.8, changeFreq: "weekly" as const },
     // Resume Tools
     { path: "/tools/ai-resume-builder", priority: 0.9, changeFreq: "weekly" as const },
-    { path: "/tools/ats-resume-checker", priority: 0.9, changeFreq: "weekly" as const },
     { path: "/tools/resume-scorer", priority: 0.8, changeFreq: "weekly" as const },
     { path: "/tools/cover-letter-generator", priority: 0.8, changeFreq: "weekly" as const },
     // Static Pages

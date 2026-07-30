@@ -28,7 +28,6 @@ const allTools: ToolItem[] = [
   // Resume Tools
   { name: "Resume Scorer", href: "/tools/resume-scorer", description: "100-point ATS resume scoring & section audit", category: "resume" },
   { name: "AI Resume Builder", href: "/tools/ai-resume-builder", description: "Create professional ATS-friendly resumes in minutes", category: "resume" },
-  { name: "ATS Resume Checker", href: "/tools/ats-resume-checker", description: "Scan your resume for ATS compliance and keywords", category: "resume" },
   { name: "Cover Letter Generator", href: "/tools/cover-letter-generator", description: "Generate personalized cover letters using AI", category: "resume" },
 ];
 
