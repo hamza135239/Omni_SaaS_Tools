@@ -89,7 +89,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteSchema) }} />
 
-        {/* Theme init script - enforce light theme default for high contrast */}
+        {/* Theme init script - enforce light mode by default */}
         <script dangerouslySetInnerHTML={{ __html: `
           try {
             const t = localStorage.getItem('theme');
@@ -98,6 +98,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               d.classList.add('dark');
             } else {
               d.classList.remove('dark');
+              localStorage.setItem('theme', 'light');
             }
           } catch(e) {}
         `}} />
