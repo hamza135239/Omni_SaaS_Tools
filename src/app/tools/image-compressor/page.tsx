@@ -1,11 +1,10 @@
-import { Metadata } from "next";
-import Link from "next/link";
+﻿import { Metadata } from "next";
 import { ImageCompressorTool } from "@/tools/image-compressor/ImageCompressorTool";
 import { ImageCompressorSeo } from "@/tools/image-compressor/ImageCompressorSeo";
 import { HeaderAd, FooterAd } from "@/components/ads/AdUnit";
 import { RelatedTools } from "@/components/seo/RelatedTools";
 import { TrustBadges } from "@/components/seo/TrustBadges";
-import { ChevronRight, Home } from "lucide-react";
+import { ToolPageHero } from "@/components/ui/ToolPageHero";
 import {
   generateWebApplicationSchema,
   generateFaqSchema,
@@ -17,7 +16,7 @@ const TOOL_PATH = "/tools/image-compressor";
 const CANONICAL_URL = `${SITE_URL}${TOOL_PATH}`;
 
 export const metadata: Metadata = {
-  title: "Compress Image Online Free (PNG, JPG, WEBP) — Fast | ToolboxSaaS",
+  title: "Compress Image Online Free (PNG, JPG, WEBP) â€” Fast | ToolboxSaaS",
   description:
     "Compress JPG, PNG, and WebP image file sizes up to 85% online for free. Real-time visual comparison slider with 100% private browser WebAssembly compression.",
   keywords: [
@@ -31,7 +30,7 @@ export const metadata: Metadata = {
     canonical: CANONICAL_URL,
   },
   openGraph: {
-    title: "Compress Image Online Free (PNG, JPG, WEBP) — Fast",
+    title: "Compress Image Online Free (PNG, JPG, WEBP) â€” Fast",
     description:
       "Compress JPG, PNG, and WebP image file sizes up to 85% online for free.",
     url: CANONICAL_URL,
@@ -71,7 +70,7 @@ const breadcrumbSchema = generateBreadcrumbSchema([
 
 export default function ImageCompressorPage() {
   return (
-    <div className="min-h-screen py-6 px-4 sm:px-6 lg:px-8 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100">
+    <div className="min-h-screen bg-slate-50 pb-16">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
@@ -87,19 +86,14 @@ export default function ImageCompressorPage() {
 
       <HeaderAd />
 
-      <div className="max-w-5xl mx-auto mb-6 flex items-center gap-2 text-xs font-semibold text-slate-500 dark:text-slate-400">
-        <Link href="/" className="hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1">
-          <Home className="w-3.5 h-3.5" /> Home
-        </Link>
-        <ChevronRight className="w-3 h-3" />
-        <Link href="/tools" className="hover:text-indigo-600 dark:hover:text-indigo-400">
-          Tools
-        </Link>
-        <ChevronRight className="w-3 h-3" />
-        <span className="text-slate-950 dark:text-slate-100 font-bold">Image Compressor</span>
-      </div>
+      <ToolPageHero
+        title="Compress Images Online Free"
+        description="Compress PNG, JPG, and WebP images up to 90% smaller. Client-side compression with zero quality loss."
+        badge="Image Tools Suite"
+        breadcrumbLabel="Image Compressor"
+      />
 
-      <ImageCompressorTool />
+<ImageCompressorTool />
 
       <TrustBadges />
 
@@ -115,3 +109,4 @@ export default function ImageCompressorPage() {
     </div>
   );
 }
+

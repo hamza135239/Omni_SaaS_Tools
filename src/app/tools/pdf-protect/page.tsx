@@ -1,11 +1,10 @@
-import { Metadata } from "next";
-import Link from "next/link";
+﻿import { Metadata } from "next";
 import { PdfProtectTool } from "@/tools/pdf-protect/PdfProtectTool";
 import { PdfProtectSeo } from "@/tools/pdf-protect/PdfProtectSeo";
 import { HeaderAd, FooterAd } from "@/components/ads/AdUnit";
 import { RelatedTools } from "@/components/seo/RelatedTools";
 import { TrustBadges } from "@/components/seo/TrustBadges";
-import { ChevronRight, Home } from "lucide-react";
+import { ToolPageHero } from "@/components/ui/ToolPageHero";
 import {
   generateWebApplicationSchema,
   generateFaqSchema,
@@ -70,7 +69,7 @@ const breadcrumbSchema = generateBreadcrumbSchema([
 
 export default function PdfProtectPage() {
   return (
-    <div className="min-h-screen py-6 px-4 sm:px-6 lg:px-8 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100">
+    <div className="min-h-screen bg-slate-50 pb-16">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
@@ -86,17 +85,12 @@ export default function PdfProtectPage() {
 
       <HeaderAd />
 
-      <div className="max-w-5xl mx-auto mb-6 flex items-center gap-2 text-xs font-semibold text-slate-500 dark:text-slate-400">
-        <Link href="/" className="hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1">
-          <Home className="w-3.5 h-3.5" /> Home
-        </Link>
-        <ChevronRight className="w-3 h-3" />
-        <Link href="/tools" className="hover:text-indigo-600 dark:hover:text-indigo-400">
-          Tools
-        </Link>
-        <ChevronRight className="w-3 h-3" />
-        <span className="text-slate-950 dark:text-slate-100 font-bold">Protect PDF</span>
-      </div>
+      <ToolPageHero
+        title="Password Protect PDF Online Free"
+        description="Encrypt and password protect your PDF files instantly in your browser. AES-256 encryption, no server uploads."
+        badge="PDF Utility Suite"
+        breadcrumbLabel="Protect PDF"
+      />
 
       <PdfProtectTool />
 
@@ -114,3 +108,4 @@ export default function PdfProtectPage() {
     </div>
   );
 }
+

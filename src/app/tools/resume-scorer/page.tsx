@@ -1,11 +1,10 @@
-import { Metadata } from "next";
-import Link from "next/link";
+﻿import { Metadata } from "next";
 import { ResumeScorerTool } from "@/tools/resume-scorer/ResumeScorerTool";
 import { ResumeScorerSeo } from "@/tools/resume-scorer/ResumeScorerSeo";
 import { HeaderAd, FooterAd } from "@/components/ads/AdUnit";
 import { RelatedTools } from "@/components/seo/RelatedTools";
 import { TrustBadges } from "@/components/seo/TrustBadges";
-import { ChevronRight, Home } from "lucide-react";
+import { ToolPageHero } from "@/components/ui/ToolPageHero";
 import {
   generateWebApplicationSchema,
   generateFaqSchema,
@@ -71,7 +70,7 @@ const breadcrumbSchema = generateBreadcrumbSchema([
 
 export default function ResumeScorerPage() {
   return (
-    <div className="min-h-screen py-6 px-4 sm:px-6 lg:px-8 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100">
+    <div className="min-h-screen bg-slate-50 pb-16">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
@@ -87,19 +86,14 @@ export default function ResumeScorerPage() {
 
       <HeaderAd />
 
-      <div className="max-w-5xl mx-auto mb-6 flex items-center gap-2 text-xs font-semibold text-slate-500 dark:text-slate-400">
-        <Link href="/" className="hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1">
-          <Home className="w-3.5 h-3.5" /> Home
-        </Link>
-        <ChevronRight className="w-3 h-3" />
-        <Link href="/tools" className="hover:text-indigo-600 dark:hover:text-indigo-400">
-          Tools
-        </Link>
-        <ChevronRight className="w-3 h-3" />
-        <span className="text-slate-950 dark:text-slate-100 font-bold">ATS Resume Scorer</span>
-      </div>
+      <ToolPageHero
+        title="Free ATS Resume Scorer"
+        description="Get a 0-100 AI score for your resume. Audit formatting, section structure, keyword density and bullet quality."
+        badge="Career Tools Suite"
+        breadcrumbLabel="Resume Scorer"
+      />
 
-      <ResumeScorerTool />
+<ResumeScorerTool />
 
       <TrustBadges />
 
@@ -115,3 +109,4 @@ export default function ResumeScorerPage() {
     </div>
   );
 }
+

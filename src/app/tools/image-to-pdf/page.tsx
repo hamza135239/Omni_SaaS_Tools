@@ -1,11 +1,10 @@
-import { Metadata } from "next";
-import Link from "next/link";
+﻿import { Metadata } from "next";
 import { ImageToPdfTool } from "@/tools/image-to-pdf/ImageToPdfTool";
 import { ImageToPdfSeo } from "@/tools/image-to-pdf/ImageToPdfSeo";
 import { HeaderAd, FooterAd } from "@/components/ads/AdUnit";
 import { RelatedTools } from "@/components/seo/RelatedTools";
 import { TrustBadges } from "@/components/seo/TrustBadges";
-import { ChevronRight, Home } from "lucide-react";
+import { ToolPageHero } from "@/components/ui/ToolPageHero";
 import {
   generateWebApplicationSchema,
   generateFaqSchema,
@@ -17,7 +16,7 @@ const TOOL_PATH = "/tools/image-to-pdf";
 const CANONICAL_URL = `${SITE_URL}${TOOL_PATH}`;
 
 export const metadata: Metadata = {
-  title: "Convert JPG to PDF Online Free (Image to PDF) — Fast | ToolboxSaaS",
+  title: "Convert JPG to PDF Online Free (Image to PDF) â€” Fast | ToolboxSaaS",
   description:
     "Convert JPG, PNG, WEBP, and BMP images into a clean single PDF document online for free. 100% private browser processing with zero watermarks.",
   keywords: [
@@ -31,7 +30,7 @@ export const metadata: Metadata = {
     canonical: CANONICAL_URL,
   },
   openGraph: {
-    title: "Convert JPG to PDF Online Free (Image to PDF) — Fast",
+    title: "Convert JPG to PDF Online Free (Image to PDF) â€” Fast",
     description:
       "Convert JPG, PNG, WEBP, and BMP images into a clean single PDF document online for free.",
     url: CANONICAL_URL,
@@ -70,7 +69,7 @@ const breadcrumbSchema = generateBreadcrumbSchema([
 
 export default function ImageToPdfPage() {
   return (
-    <div className="min-h-screen py-6 px-4 sm:px-6 lg:px-8 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100">
+    <div className="min-h-screen bg-slate-50 pb-16">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
@@ -86,17 +85,12 @@ export default function ImageToPdfPage() {
 
       <HeaderAd />
 
-      <div className="max-w-5xl mx-auto mb-6 flex items-center gap-2 text-xs font-semibold text-slate-500 dark:text-slate-400">
-        <Link href="/" className="hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1">
-          <Home className="w-3.5 h-3.5" /> Home
-        </Link>
-        <ChevronRight className="w-3 h-3" />
-        <Link href="/tools" className="hover:text-indigo-600 dark:hover:text-indigo-400">
-          Tools
-        </Link>
-        <ChevronRight className="w-3 h-3" />
-        <span className="text-slate-950 dark:text-slate-100 font-bold">Image to PDF</span>
-      </div>
+      <ToolPageHero
+        title="Convert Images to PDF Online Free"
+        description="Combine JPG, PNG and WebP photos into a single clean PDF document in seconds. Batch support."
+        badge="PDF Utility Suite"
+        breadcrumbLabel="Image to PDF"
+      />
 
       <ImageToPdfTool />
 
@@ -114,3 +108,4 @@ export default function ImageToPdfPage() {
     </div>
   );
 }
+

@@ -1,11 +1,10 @@
-import { Metadata } from "next";
-import Link from "next/link";
+﻿import { Metadata } from "next";
 import { PdfSplitTool } from "@/tools/pdf-split/PdfSplitTool";
 import { PdfSplitSeo } from "@/tools/pdf-split/PdfSplitSeo";
 import { HeaderAd, FooterAd } from "@/components/ads/AdUnit";
 import { RelatedTools } from "@/components/seo/RelatedTools";
 import { TrustBadges } from "@/components/seo/TrustBadges";
-import { ChevronRight, Home } from "lucide-react";
+import { ToolPageHero } from "@/components/ui/ToolPageHero";
 import {
   generateWebApplicationSchema,
   generateFaqSchema,
@@ -17,7 +16,7 @@ const TOOL_PATH = "/tools/pdf-split";
 const CANONICAL_URL = `${SITE_URL}${TOOL_PATH}`;
 
 export const metadata: Metadata = {
-  title: "Split PDF Online Free (Extract Pages & Ranges) — Fast | ToolboxSaaS",
+  title: "Split PDF Online Free (Extract Pages & Ranges) â€” Fast | ToolboxSaaS",
   description:
     "Separate single PDF pages or extract custom page ranges into individual PDF files online for free. 100% private client-side WASM processing.",
   keywords: [
@@ -31,7 +30,7 @@ export const metadata: Metadata = {
     canonical: CANONICAL_URL,
   },
   openGraph: {
-    title: "Split PDF Online Free (Extract Pages & Ranges) — Fast",
+    title: "Split PDF Online Free (Extract Pages & Ranges) â€” Fast",
     description:
       "Separate single PDF pages or extract custom page ranges into individual PDF files online for free.",
     url: CANONICAL_URL,
@@ -70,7 +69,7 @@ const breadcrumbSchema = generateBreadcrumbSchema([
 
 export default function PdfSplitPage() {
   return (
-    <div className="min-h-screen py-6 px-4 sm:px-6 lg:px-8 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100">
+    <div className="min-h-screen bg-slate-50 pb-16">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
@@ -86,17 +85,12 @@ export default function PdfSplitPage() {
 
       <HeaderAd />
 
-      <div className="max-w-5xl mx-auto mb-6 flex items-center gap-2 text-xs font-semibold text-slate-500 dark:text-slate-400">
-        <Link href="/" className="hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1">
-          <Home className="w-3.5 h-3.5" /> Home
-        </Link>
-        <ChevronRight className="w-3 h-3" />
-        <Link href="/tools" className="hover:text-indigo-600 dark:hover:text-indigo-400">
-          Tools
-        </Link>
-        <ChevronRight className="w-3 h-3" />
-        <span className="text-slate-950 dark:text-slate-100 font-bold">Split PDF</span>
-      </div>
+      <ToolPageHero
+        title="Split PDF Pages Online Free"
+        description="Extract pages or split PDF into separate files instantly. No file uploads, 100% browser-processed."
+        badge="PDF Utility Suite"
+        breadcrumbLabel="Split PDF"
+      />
 
       <PdfSplitTool />
 
@@ -114,3 +108,4 @@ export default function PdfSplitPage() {
     </div>
   );
 }
+

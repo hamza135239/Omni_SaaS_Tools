@@ -1,11 +1,10 @@
-import { Metadata } from "next";
-import Link from "next/link";
+﻿import { Metadata } from "next";
 import { PdfMergeTool } from "@/tools/pdf-merge/PdfMergeTool";
 import { PdfMergeSeo } from "@/tools/pdf-merge/PdfMergeSeo";
 import { HeaderAd, FooterAd } from "@/components/ads/AdUnit";
 import { RelatedTools } from "@/components/seo/RelatedTools";
 import { TrustBadges } from "@/components/seo/TrustBadges";
-import { ChevronRight, Home } from "lucide-react";
+import { ToolPageHero } from "@/components/ui/ToolPageHero";
 import {
   generateWebApplicationSchema,
   generateFaqSchema,
@@ -17,7 +16,7 @@ const TOOL_PATH = "/tools/pdf-merge";
 const CANONICAL_URL = `${SITE_URL}${TOOL_PATH}`;
 
 export const metadata: Metadata = {
-  title: "Merge PDF Online Free (Combine PDF Files) — Fast | ToolboxSaaS",
+  title: "Merge PDF Online Free (Combine PDF Files) â€” Fast | ToolboxSaaS",
   description:
     "Combine multiple PDF documents into one single file online for free. Drag & drop page reordering with 100% secure client-side WASM processing.",
   keywords: [
@@ -31,7 +30,7 @@ export const metadata: Metadata = {
     canonical: CANONICAL_URL,
   },
   openGraph: {
-    title: "Merge PDF Online Free (Combine PDF Files) — Fast",
+    title: "Merge PDF Online Free (Combine PDF Files) â€” Fast",
     description:
       "Combine multiple PDF documents into one single file online for free with page reordering.",
     url: CANONICAL_URL,
@@ -70,7 +69,7 @@ const breadcrumbSchema = generateBreadcrumbSchema([
 
 export default function PdfMergePage() {
   return (
-    <div className="min-h-screen py-6 px-4 sm:px-6 lg:px-8 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100">
+    <div className="min-h-screen bg-slate-50 pb-16">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
@@ -86,17 +85,12 @@ export default function PdfMergePage() {
 
       <HeaderAd />
 
-      <div className="max-w-5xl mx-auto mb-6 flex items-center gap-2 text-xs font-semibold text-slate-500 dark:text-slate-400">
-        <Link href="/" className="hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1">
-          <Home className="w-3.5 h-3.5" /> Home
-        </Link>
-        <ChevronRight className="w-3 h-3" />
-        <Link href="/tools" className="hover:text-indigo-600 dark:hover:text-indigo-400">
-          Tools
-        </Link>
-        <ChevronRight className="w-3 h-3" />
-        <span className="text-slate-950 dark:text-slate-100 font-bold">Merge PDF</span>
-      </div>
+      <ToolPageHero
+        title="Merge PDF Files Online Free"
+        description="Combine multiple PDF documents into one single file. Reorder pages, drag & drop, 100% private browser processing."
+        badge="PDF Utility Suite"
+        breadcrumbLabel="PDF Merge"
+      />
 
       <PdfMergeTool />
 
@@ -114,3 +108,4 @@ export default function PdfMergePage() {
     </div>
   );
 }
+

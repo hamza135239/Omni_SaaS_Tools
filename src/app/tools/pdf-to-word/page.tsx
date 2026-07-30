@@ -1,11 +1,10 @@
 import { Metadata } from "next";
-import Link from "next/link";
 import { PdfToWordClient } from "@/tools/pdf-to-word/PdfToWordClient";
 import { PdfToWordSeo } from "@/tools/pdf-to-word/PdfToWordSeo";
 import { HeaderAd, FooterAd } from "@/components/ads/AdUnit";
 import { RelatedTools } from "@/components/seo/RelatedTools";
 import { TrustBadges } from "@/components/seo/TrustBadges";
-import { ChevronRight, Home } from "lucide-react";
+import { ToolPageHero } from "@/components/ui/ToolPageHero";
 import {
   getCanonicalUrl,
   generateWebApplicationSchema,
@@ -18,7 +17,7 @@ const TOOL_PATH = "/tools/pdf-to-word";
 const CANONICAL_URL = getCanonicalUrl(TOOL_PATH);
 
 export const metadata: Metadata = {
-  title: "Convert PDF to Word Online Free (Editable DOCX) — Fast",
+  title: "Convert PDF to Word Online Free (Editable DOCX) â€” Fast",
   description:
     "Convert PDF files to editable Microsoft Word (.docx) documents online for free. Preserves layout, formatting, and fonts with 100% private browser processing.",
   keywords: [
@@ -32,7 +31,7 @@ export const metadata: Metadata = {
     canonical: CANONICAL_URL,
   },
   openGraph: {
-    title: "Convert PDF to Word Online Free (Editable DOCX) — Fast",
+    title: "Convert PDF to Word Online Free (Editable DOCX) â€” Fast",
     description:
       "Convert PDF files to editable Microsoft Word (.docx) documents online for free preserving layout and fonts.",
     url: CANONICAL_URL,
@@ -41,7 +40,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Convert PDF to Word Online Free (Editable DOCX) — Fast",
+    title: "Convert PDF to Word Online Free (Editable DOCX) â€” Fast",
     description: "Convert PDF files to editable Microsoft Word (.docx) documents online for free.",
   },
   robots: {
@@ -93,7 +92,7 @@ const breadcrumbSchema = generateBreadcrumbSchema([
 
 export default function PdfToWordPage() {
   return (
-    <div className="min-h-screen py-6 px-4 sm:px-6 lg:px-8 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100">
+    <div className="min-h-screen bg-slate-50 pb-16">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
@@ -113,25 +112,23 @@ export default function PdfToWordPage() {
 
       <HeaderAd />
 
-      <div className="max-w-5xl mx-auto mb-6 flex items-center gap-2 text-xs font-semibold text-slate-500 dark:text-slate-400">
-        <Link href="/" className="hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1">
-          <Home className="w-3.5 h-3.5" /> Home
-        </Link>
-        <ChevronRight className="w-3 h-3" />
-        <Link href="/tools" className="hover:text-indigo-600 dark:hover:text-indigo-400">
-          Tools
-        </Link>
-        <ChevronRight className="w-3 h-3" />
-        <span className="text-slate-950 dark:text-slate-100 font-bold">PDF to Word Converter</span>
-      </div>
+      <ToolPageHero
+        title="Convert PDF to Word Online Free"
+        description="Convert non-editable PDF documents into fully editable Word (.docx) files with original formatting preserved."
+        badge="PDF Utility Suite"
+        breadcrumbLabel="PDF to Word"
+      />
 
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       <PdfToWordClient />
+
+      </div>
 
       <TrustBadges />
 
       <PdfToWordSeo />
 
-      <div className="max-w-5xl mx-auto mt-12">
+      <div className="max-w-5xl mx-auto mt-12 px-4 sm:px-6 lg:px-8">
         <RelatedTools currentPath={TOOL_PATH} category="pdf" />
       </div>
 
@@ -141,3 +138,4 @@ export default function PdfToWordPage() {
     </div>
   );
 }
+
