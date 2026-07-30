@@ -18,10 +18,37 @@ body {
   overflow-x: hidden;
 }
 
+/* =========================================================
+   GLOBAL BUTTON TEXT FIX
+   Tailwind text-white is sometimes blocked by the body color
+   override. This ensures any button/anchor with dark bg always
+   shows white text regardless of inheritance chain.
+   ========================================================= */
+a.bg-zinc-900, button.bg-zinc-900,
+a.bg-emerald-600, button.bg-emerald-600,
+a.bg-indigo-600, button.bg-indigo-600,
+a.bg-blue-600, button.bg-blue-600,
+a.bg-violet-600, button.bg-violet-600,
+a.bg-rose-600, button.bg-rose-600,
+a.bg-amber-600, button.bg-amber-600,
+a.bg-purple-600, button.bg-purple-600 {
+  color: #ffffff !important;
+}
+
+a.bg-zinc-900 svg, button.bg-zinc-900 svg,
+a.bg-emerald-600 svg, button.bg-emerald-600 svg,
+a.bg-indigo-600 svg, button.bg-indigo-600 svg,
+a.bg-blue-600 svg, button.bg-blue-600 svg,
+a.bg-violet-600 svg, button.bg-violet-600 svg,
+a.bg-purple-600 svg, button.bg-purple-600 svg {
+  color: #ffffff !important;
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Outfit', sans-serif;
   color: #0f172a;
 }
+
 
 /* Canva Signature Purple-Cyan Gradient Hero Banner */
 .canva-hero-banner {

@@ -413,15 +413,18 @@ export function ResumeScorerTool() {
           <button
             onClick={runNeuralNetworkAtsAnalysis}
             disabled={loading || !pdfFile || loadingText || !resumeText}
-            className="w-full py-3.5 px-6 rounded-xl font-semibold text-sm bg-zinc-900 hover:bg-zinc-800 disabled:opacity-50 text-white shadow-xs flex items-center justify-center gap-2 transition-all cursor-pointer"
+            style={{ backgroundColor: "#18181b", color: "#ffffff" }}
+            className="w-full py-3.5 px-6 rounded-xl font-semibold text-sm hover:opacity-90 disabled:opacity-50 shadow-xs flex items-center justify-center gap-2 transition-all cursor-pointer"
           >
             {loading ? (
               <>
-                <RefreshCw className="w-4 h-4 animate-spin" /> {statusMsg || "Scanning Resume..."}
+                <RefreshCw style={{ color: "#ffffff" }} className="w-4 h-4 animate-spin" />
+                <span style={{ color: "#ffffff" }}>{statusMsg || "Scanning Resume..."}</span>
               </>
             ) : (
               <>
-                <Sparkles className="w-4 h-4 text-violet-400" /> Scan Resume & Calculate ATS Score
+                <Sparkles className="w-4 h-4 text-violet-400" />
+                <span style={{ color: "#ffffff" }}>Scan Resume & Calculate ATS Score</span>
               </>
             )}
           </button>

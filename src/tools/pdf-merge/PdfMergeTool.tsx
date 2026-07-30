@@ -220,15 +220,18 @@ export function PdfMergeTool() {
           <button
             onClick={handleMergePdfs}
             disabled={loading || pdfFiles.length < 2}
-            className="w-full py-3.5 px-6 rounded-xl font-semibold text-sm bg-zinc-900 hover:bg-zinc-800 disabled:opacity-50 text-white shadow-xs flex items-center justify-center gap-2 transition-all cursor-pointer"
+            style={{ backgroundColor: "#0f172a", color: "#ffffff" }}
+            className="w-full py-3.5 px-6 rounded-xl font-semibold text-sm hover:opacity-90 disabled:opacity-50 shadow-xs flex items-center justify-center gap-2 transition-all cursor-pointer"
           >
             {loading ? (
               <>
-                <RefreshCw className="w-4 h-4 animate-spin" /> Merging PDF Documents...
+                <RefreshCw style={{ color: "#ffffff" }} className="w-4 h-4 animate-spin" />
+                <span style={{ color: "#ffffff" }}>Merging PDF Documents...</span>
               </>
             ) : (
               <>
-                <Layers className="w-4 h-4" /> Merge PDFs Now
+                <Layers style={{ color: "#ffffff" }} className="w-4 h-4" />
+                <span style={{ color: "#ffffff" }}>Merge PDFs Now</span>
               </>
             )}
           </button>
@@ -247,9 +250,11 @@ export function PdfMergeTool() {
             <a
               href={mergedPdfUrl}
               download="merged-document.pdf"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm bg-zinc-900 hover:bg-zinc-800 text-white shadow-xs"
+              style={{ backgroundColor: "#0f172a", color: "#ffffff" }}
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm hover:opacity-90 shadow-xs"
             >
-              <Download className="w-4 h-4" /> Download Merged PDF
+              <Download style={{ color: "#ffffff" }} className="w-4 h-4" />
+              <span style={{ color: "#ffffff" }}>Download Merged PDF</span>
             </a>
           </div>
         </div>

@@ -210,15 +210,18 @@ export function PdfCompressorTool() {
           <button
             onClick={handleCompressPdf}
             disabled={loading || !pdfFile}
-            className="w-full py-3.5 px-6 rounded-xl font-semibold text-sm bg-zinc-900 hover:bg-zinc-800 disabled:opacity-50 text-white shadow-xs flex items-center justify-center gap-2 transition-all cursor-pointer"
+            style={{ backgroundColor: "#0f172a", color: "#ffffff" }}
+            className="w-full py-3.5 px-6 rounded-xl font-semibold text-sm hover:opacity-90 disabled:opacity-50 shadow-xs flex items-center justify-center gap-2 transition-all cursor-pointer"
           >
             {loading ? (
               <>
-                <RefreshCw className="w-4 h-4 animate-spin" /> Optimizing PDF Streams...
+                <RefreshCw style={{ color: "#ffffff" }} className="w-4 h-4 animate-spin" />
+                <span style={{ color: "#ffffff" }}>Optimizing PDF Streams...</span>
               </>
             ) : (
               <>
-                <Layers className="w-4 h-4" /> Compress PDF File
+                <Layers style={{ color: "#ffffff" }} className="w-4 h-4" />
+                <span style={{ color: "#ffffff" }}>Compress PDF File</span>
               </>
             )}
           </button>
@@ -237,9 +240,11 @@ export function PdfCompressorTool() {
             <a
               href={compressedPdfUrl}
               download={`compressed-${pdfFile?.name || "document.pdf"}`}
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm bg-zinc-900 hover:bg-zinc-800 text-white shadow-xs"
+              style={{ backgroundColor: "#0f172a", color: "#ffffff" }}
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm hover:opacity-90 shadow-xs"
             >
-              <Download className="w-4 h-4" /> Download Compressed PDF
+              <Download style={{ color: "#ffffff" }} className="w-4 h-4" />
+              <span style={{ color: "#ffffff" }}>Download Compressed PDF</span>
             </a>
           </div>
         </div>

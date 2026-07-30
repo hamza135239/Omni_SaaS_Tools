@@ -159,15 +159,18 @@ export function CoverLetterGeneratorTool() {
           <button
             onClick={handleGenerateLetter}
             disabled={loading || !jobTitle || !companyName}
-            className="w-full py-3.5 px-6 rounded-xl font-semibold text-sm bg-zinc-900 hover:bg-zinc-800 disabled:opacity-50 text-white shadow-xs flex items-center justify-center gap-2 transition-all cursor-pointer mt-2"
+            style={{ backgroundColor: "#18181b", color: "#ffffff" }}
+            className="w-full py-3.5 px-6 rounded-xl font-semibold text-sm hover:opacity-90 disabled:opacity-50 shadow-xs flex items-center justify-center gap-2 transition-all cursor-pointer mt-2"
           >
             {loading ? (
               <>
-                <RefreshCw className="w-4 h-4 animate-spin" /> Drafting Cover Letter...
+                <RefreshCw style={{ color: "#ffffff" }} className="w-4 h-4 animate-spin" />
+                <span style={{ color: "#ffffff" }}>Drafting Cover Letter...</span>
               </>
             ) : (
               <>
-                <Sparkles className="w-4 h-4 text-indigo-400" /> Generate Tailored Cover Letter
+                <Sparkles className="w-4 h-4 text-indigo-400" />
+                <span style={{ color: "#ffffff" }}>Generate Tailored Cover Letter</span>
               </>
             )}
           </button>
@@ -191,9 +194,10 @@ export function CoverLetterGeneratorTool() {
                   </button>
                   <button
                     onClick={handleDownloadText}
-                    className="flex items-center gap-1 px-2.5 py-1 text-[11px] font-semibold bg-white border border-zinc-200 rounded-lg hover:bg-zinc-100 text-zinc-700"
+                    className="flex items-center gap-1 px-2.5 py-1 text-[11px] font-semibold bg-slate-800 border border-slate-700 rounded-lg hover:bg-slate-700 text-white"
                   >
-                    <Download className="w-3 h-3" /> TXT
+                    <Download className="w-3 h-3 text-white" />
+                    <span>TXT</span>
                   </button>
                 </div>
               )}

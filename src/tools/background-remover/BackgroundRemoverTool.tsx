@@ -387,9 +387,11 @@ export function BackgroundRemoverTool() {
               {/* Download Action Button */}
               <button
                 onClick={handleDownload}
-                className="w-full py-3.5 px-6 rounded-xl font-semibold text-sm bg-zinc-900 hover:bg-zinc-800 text-white shadow-xs flex items-center justify-center gap-2 transition-all cursor-pointer"
+                style={{ backgroundColor: "#18181b", color: "#ffffff" }}
+                className="w-full py-3.5 px-6 rounded-xl font-semibold text-sm hover:opacity-90 shadow-xs flex items-center justify-center gap-2 transition-all cursor-pointer"
               >
-                <Download className="w-4 h-4" /> Download Transparent HD PNG
+                <Download style={{ color: "#ffffff" }} className="w-4 h-4" />
+                <span style={{ color: "#ffffff" }}>Download Transparent HD PNG</span>
               </button>
             </div>
           )}
