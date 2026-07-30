@@ -17,7 +17,7 @@ const TOOL_PATH = "/tools/ats-resume-checker";
 const CANONICAL_URL = `${SITE_URL}${TOOL_PATH}`;
 
 export const metadata: Metadata = {
-  title: "Free ATS Resume Checker (AI Score & Keyword Optimizer) | ToolboxSaaS",
+  title: "Free ATS Resume Checker (AI Score & Keyword Optimizer)",
   description:
     "Check your resume against target job descriptions using AI natural language processing. Find missing keywords and boost your ATS score instantly without registration.",
   keywords: [

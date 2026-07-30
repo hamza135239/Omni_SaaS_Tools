@@ -17,7 +17,7 @@ const TOOL_PATH = "/tools/pdf-compressor";
 const CANONICAL_URL = `${SITE_URL}${TOOL_PATH}`;
 
 export const metadata: Metadata = {
-  title: "Compress PDF Online Free (Reduce File Size) — Fast | ToolboxSaaS",
+  title: "Compress PDF Online Free (Reduce File Size)",
   description:
     "Compress PDF files online for free. Reduce PDF file size instantly without losing document quality. 100% secure client-side WASM processing. No signup required.",
   keywords: [
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     canonical: CANONICAL_URL,
   },
   openGraph: {
-    title: "Compress PDF Online Free (Reduce File Size) — Fast",
+    title: "Compress PDF Online Free (Reduce File Size)",
     description:
       "Compress PDF files online for free without losing document quality. 100% secure client-side processing.",
     url: CANONICAL_URL,
@@ -71,7 +71,6 @@ const breadcrumbSchema = generateBreadcrumbSchema([
 export default function PdfCompressorPage() {
   return (
     <div className="min-h-screen py-6 px-4 sm:px-6 lg:px-8 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100">
-      {/* Schemas */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
@@ -87,7 +86,6 @@ export default function PdfCompressorPage() {
 
       <HeaderAd />
 
-      {/* Breadcrumb Navigation */}
       <div className="max-w-5xl mx-auto mb-6 flex items-center gap-2 text-xs font-semibold text-slate-500 dark:text-slate-400">
         <Link href="/" className="hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1">
           <Home className="w-3.5 h-3.5" /> Home
