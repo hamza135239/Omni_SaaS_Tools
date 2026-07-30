@@ -71,14 +71,7 @@ export function ResumeScorerTool() {
     try {
       const pdfjs = await import("pdfjs-dist");
       if (typeof window !== "undefined") {
-        try {
-          pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-            "pdfjs-dist/build/pdf.worker.min.mjs",
-            import.meta.url
-          ).toString();
-        } catch (e) {
-          pdfjs.GlobalWorkerOptions.workerSrc = `https://cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjs.version || "6.1.200"}/build/pdf.worker.min.mjs`;
-        }
+        pdfjs.GlobalWorkerOptions.workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js";
       }
 
       const arrayBuffer = await file.arrayBuffer();

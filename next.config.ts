@@ -4,9 +4,17 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
 
   // ── Instant Image Delivery ──────────────────────────────────
-  // Browser loads images directly from Unsplash/Supabase CDN without Node server processing lag
   images: {
     unoptimized: true,
+  },
+
+  // ── Webpack Alias Fallback for pdfjs-dist ───────────────────
+  webpack: (config) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      canvas: false,
+    };
+    return config;
   },
 
   // ── Security Headers ───────────────────────────────────────
