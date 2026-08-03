@@ -148,15 +148,18 @@ export function BackgroundRemoverTool() {
 
     try {
       const imgRemover = await import("@imgly/background-removal");
-      setProgress(30);
+      setProgress(25);
 
       const blob = await imgRemover.removeBackground(file, {
-        publicPath: "https://staticimgly.com/@imgly/background-removal-data/1.5.5/dist/",
+        // Let the library resolve its own assets automatically — no publicPath override
         progress: (stage: string, current: number, total: number) => {
           if (total > 0) {
             const p = Math.round((current / total) * 100);
-            if (stage.includes("fetch")) setProgress(30 + Math.round(p * 0.4));
-            else if (stage.includes("compute")) setProgress(70 + Math.round(p * 0.28));
+            if (stage.includes("fetch") || stage.includes("download")) {
+              setProgress(25 + Math.round(p * 0.45));
+            } else if (stage.includes("compute") || stage.includes("inference")) {
+              setProgress(70 + Math.round(p * 0.28));
+            }
           }
         },
       });
@@ -164,20 +167,20 @@ export function BackgroundRemoverTool() {
       const processedImageUrl = URL.createObjectURL(blob);
       setProcessedUrl(processedImageUrl);
       setProgress(100);
-    } catch (err) {
-      console.warn("WASM removal fallback to Edge-Connected Smart Canvas:", err);
-      const img = new Image();
-      img.crossOrigin = "anonymous";
-      img.src = url;
-      img.onload = async () => {
-        const smartUrl = await removeBgCanvasSmart(img);
-        setProcessedUrl(smartUrl);
-        setProgress(100);
-      };
+    } catch (err: unknown) {
+      const errMsg = err instanceof Error ? err.message : String(err);
+      console.error("AI background removal error:", errMsg);
+
+      // Show a clear user-facing error instead of silently running bad canvas fallback
+      setError(
+        "⚠️ AI model could not be loaded in your browser. This may happen due to browser security restrictions (SharedArrayBuffer). Please try in Chrome or Edge, or reload the page."
+      );
+      setProgress(0);
     } finally {
       setLoading(false);
     }
   };
+
 
   const handleDownload = () => {
     if (!processedUrl) return;
