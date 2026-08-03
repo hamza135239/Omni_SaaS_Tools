@@ -10,6 +10,7 @@ interface CompressedResult {
   previewUrl: string;
   quality: number;
   format: string;
+  downloadName: string;
 }
 
 export function ImageCompressorTool() {
@@ -68,7 +69,17 @@ export function ImageCompressorTool() {
               return;
             }
 
-            const compressedFile = new File([blob], imgFile.name, { type: format });
+            // Build correct filename with proper extension for the chosen format
+            const extMap: Record<string, string> = {
+              "image/jpeg": "jpg",
+              "image/webp": "webp",
+              "image/png": "png",
+            };
+            const ext = extMap[format] || "jpg";
+            const baseName = imgFile.name.replace(/\.[^.]+$/, "");
+            const downloadName = `compressed-${baseName}.${ext}`;
+
+            const compressedFile = new File([blob], downloadName, { type: format });
             const compressedUrl = URL.createObjectURL(blob);
 
             setResult({
@@ -78,6 +89,7 @@ export function ImageCompressorTool() {
               previewUrl: compressedUrl,
               quality: q,
               format,
+              downloadName,
             });
 
             setLoading(false);
@@ -254,12 +266,19 @@ export function ImageCompressorTool() {
                   Size: {(result.compressedSize / 1024).toFixed(1)} KB
                 </p>
 
+                {/* Download Ready Banner */}
+                <div className="flex items-center justify-center gap-2 text-xs font-black text-emerald-700 bg-emerald-100 border border-emerald-300 rounded-lg px-3 py-2">
+                  ✅ Compressed image is ready to download!
+                </div>
+
                 <a
                   href={result.previewUrl}
-                  download={`compressed-${file.name}`}
-                  className="w-full py-3.5 rounded-xl font-extrabold text-xs bg-emerald-600 hover:bg-emerald-700 text-white shadow-md flex items-center justify-center gap-2 cursor-pointer transition-all"
+                  download={result.downloadName}
+                  style={{ backgroundColor: "#059669", color: "#ffffff", display: "flex" }}
+                  className="w-full py-3.5 rounded-xl font-extrabold text-xs hover:opacity-90 shadow-md items-center justify-center gap-2 cursor-pointer transition-all"
                 >
-                  <Download className="w-4 h-4 text-white" /> Download Compressed Image
+                  <Download style={{ color: "#ffffff" }} className="w-4 h-4" />
+                  <span style={{ color: "#ffffff" }}>Download {result.downloadName}</span>
                 </a>
               </div>
 
